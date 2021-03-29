@@ -43,14 +43,54 @@ AutoML Vision supports the following task types -
 <li>image-object-detection</li>
 <li>image-instance-segmentation</li>
 </ul>
-This task type is passed in using the `task` parameter in the AutoMLVisionConfig For e.g.
+
+This task type is a required parameter and is passed in using the `task` parameter in the AutoMLVisionConfig For e.g. 
+
 ```python
 from azureml.train.automl import AutoMLVisionConfig
 automl_vision_config = AutoMLVisionConfig(task = 'image-object-detection')
 ```
 
 ### Training and Validation data
+In order to generate Vision models, you will need to bring in labeled image data as input for model training in the form of an AzureML `Labeled Dataset`. You can either use a Labeled Dataset that you have exported from a Data Labeling project, or create a new Labeled Dataset with your labeled training data. 
+
+Labeled datasets are [Tabular datasets](https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.data.tabulardataset)  with some enhanced capabilites such as mounting and downloading. Structure of the labeled dataset depends upon the task at hand. For Image task types, it consists of the following fields:
+<ul>
+<li>image_url: contains filepath as a StreamInfo object</li>
+<li>image_details: image metatadata information consist of height, width and format. This field is optional and hence may or may not exist. This restriction might become mandatory in the future.</li>
+<li>label: a json representation of the image label, based on the task type</li>
+</ul>
+
+Creation of labeled datasets is supported from data in JSONL format. If your training data is in a different format (e.g. pascal VOC), you can leverage the helper scripts included with the sample notebooks in this repo to convert the data to JSONL. Once your data is in JSONL format, you can create a labeled dataset using this snippet -
+
+```python
+from azureml.contrib.dataset.labeled_dataset import _LabeledDatasetFactory, LabeledDatasetTask
+from azureml.core import Dataset
+
+training_dataset = _LabeledDatasetFactory.from_json_lines(
+        task=LabeledDatasetTask.OBJECT_DETECTION, path=ds.path('odFridgeObjects/odFridgeObjects.jsonl'))
+    training_dataset = training_dataset.register(workspace=ws, name=training_dataset_name)
+```
+
+You can optionally specify another labeled dataset as a validation dataset to be used for your model. If no validation dataset is specified, 20% of your training data will be used for validation.
+
+Training data is a required parameter and is passed in using the `training_data` parameter. Validation data is optional and is passed in using the `validation_data` parameter of the AutoMLVisionConfig. For e.g. 
+
+```python
+from azureml.train.automl import AutoMLVisionConfig
+automl_vision_config = AutoMLVisionConfig(training_data = training_dataset)
+```
+
 ### Compute to run experiment
+You will need to provide a [Compute Target](https://docs.microsoft.com/azure/machine-learning/service/concept-azure-machine-learning-architecture#compute-target) that will be used for your AutoML model training. AutoML Vision models require GPU SKUs and support NC and ND families. Using a compute target with a multi-GPU VM SKU will leverage the multiple GPUs to speed up training. Additionally, setting up a compute target with multiple nodes will allow for faster model training by leveraging parallelism, when tuning hyperparameters for your model.
+
+The compute target is a required parameter and is passed in using the `compute_target` parameter of the AutoMLVisionConfig. For e.g. 
+
+```python
+from azureml.train.automl import AutoMLVisionConfig
+automl_vision_config = AutoMLVisionConfig(compute_target = compute_target)
+```
+
 ### Configure model algorithms and hyperparameters
 ### Sweeping hyperparameters for your model
 #### Sampling methods for the sweep
