@@ -32,8 +32,8 @@ This feature is targeted to data scientists with ML knowledge in the Computer Vi
 ### Pricing
 Like all Azure ML features, customers incur the costs associated with the Azure resources consumed (for example, compute and storage costs). There are no additional fees associated with Azure Machine Learning or AutoML Vision. See [Azure Machine Learning pricing](https://azure.microsoft.com/en-us/pricing/details/machine-learning/) for details.
 
-## How to use AutoML Vision building models for Vision tasks?
-AutoML allows you to easily train models for Image Classification, Object Detection & Instance Segmentation on your image data. You can control the model algorithm to be used, specify hyperparameter values for your model as well as perform a sweep across the hyperparameter space to generate an optimal model. Parameters for configuring your AutoML Vision run are specified using the 'AutoMLVisionConfig'.
+## How to use AutoML Vision to build models for Vision tasks?
+AutoML allows you to easily train models for Image Classification, Object Detection & Instance Segmentation on your image data. You can control the model algorithm to be used, specify hyperparameter values for your model as well as perform a sweep across the hyperparameter space to generate an optimal model. Parameters for configuring your AutoML Vision run are specified using the 'AutoMLVisionConfig' in the Python SDK.
 
 ### Select your task type
 AutoML Vision supports the following task types -
@@ -92,9 +92,21 @@ automl_vision_config = AutoMLVisionConfig(compute_target = compute_target)
 ```
 
 ### Configure model algorithms and hyperparameters
+When using AutoML Vision to build vision models, users can control the model algorithm and sweep hyperparameters. These model algorithms and hyperparameters are passed in as the parameter space for the sweep. 
+
+The model algorithm is required and is passed in via `model_name` parameter. You can either specify a single model_name or choose between multiple.
+
+#### Currently supported model algorithms:
+<ul>
+<li><b>Image Classification (multi-class and multi-label):</b> 'resnet18', 'resnet50', 'mobilenetv2', 'seresnext'</li>
+<li><b>Object Detection: </b>'yolov5', 'fasterrcnn_resnet50_fpn', 'fasterrcnn_resnet34_fpn', 'fasterrcnn_resnet18_fpn', 'retinanet_resnet50_fpn'</li>
+<li><b>Instance segmentation: </b>'maskrcnn_resnet50_fpn'</li>
+</ul>
+
 ### Sweeping hyperparameters for your model
 #### Sampling methods for the sweep
 #### Early termination policies
 #### Resources for the sweep
 ### Optimization metric
 ### Experiment budget
+## Sample notebooks
