@@ -105,9 +105,9 @@ The model algorithm is required and is passed in via `model_name` parameter. You
 
 #### Hyperparameters for model training
 
-In addition to controlling the model algorthm used, you can also tune hyperparameters used for model training. The hyperparameters exposed, and theur default values depend on the task type and the algorithm selected. The following tables list out the details of the hyperparameters for each -
+In addition to controlling the model algorthm used, you can also tune hyperparameters used for model training. The hyperparameters exposed, and their default values depend on the task type and the algorithm selected. The following tables list out the details of the hyperparameters for each -
 
-<b> For Image Classifcation (Multi-class)</b>
+<b> For Image Classifcation (Multi-class) - </b>
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
@@ -136,7 +136,8 @@ In addition to controlling the model algorthm used, you can also tune hyperparam
 | test_ratio |  |  0.2 |
 | weighted_loss | applying class-level weighting in weighted loss for class imbalance |  0 |
 
-<b>For Image Classification (Multi-label)</b>
+<b>For Image Classification (Multi-label) - </b>
+
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | learning_rate | Initial learning rate |  0.035 |
@@ -162,13 +163,88 @@ In addition to controlling the model algorthm used, you can also tune hyperparam
 | detailed_metrics | Report detailed metrics like per class/sample f1, f2, precision, recall scores |  True |
 | imbalance_rate_threshold | data imbalance ratio (#data from largest class /#data from smallest class) |  2 |
 | test_ratio |  |  0.2 |
-| weighted_loss | applying class-level weighting in weighted loss for class imbalance |  0 |
+| weighted_loss | applying class-level weighting in weighted loss for class imbalance |  0 |  
 
-<b>For Object Detection (all algorithms other than yolov5) </b>
+
+<b>For Object Detection (all algorithms other than yolov5) </b>  
+
+| Parameter Name       | Description           | Default  |
+| ------------- |-------------| -----|
+| learning_rate | Initial learning rate | 0.005 |
+| number_of_epochs | Number of training epochs | 15 |
+| training_batch_size | Training batch size | 2 |
+| validation_batch_size | Validation batch size | 1 |
+| early_stopping | Enable early stopping logic during training |  True |
+| early_stopping_patience | Minimum number of epochs/validation evaluations with no primary metric score improvement before the run is stopped |  5 |
+| early_stopping_delay | Minimum number of epochs/validation evaluations to wait before primary metric score improvement is tracked for early stopping |  5 |
+| optimizer | Type of optimizer in {sgd, adam, adamw} | sgd |
+| momentum | Value of momentum for the optimizer if it is of type sgd |  0.9 |
+| weight_decay | Value of weight_decay for the optimizer if it is of type sgd or adam or adamw |  1e-4 |
+| nesterov | Enable nesterov for the optimizer if it is of type sgd |  True |
+| beta1 | Value of beta1 for the optimizer if it is of type adam or adamw |  0.9 |
+| beta2 | Value of beta2 for the optimizer if it is of type adam or adamw |  0.999 |
+| amsgrad | Enable amsgrad for the optimizer if it is of type adam or adamw |  False |
+| lr_scheduler | Type of learning rate scheduler in {warmup_cosine, step} | warmup_cosine |
+| step_lr_gamma | Value of gamma for the learning rate scheduler if it is of type step |  0.5 |
+| step_lr_step_size | Value of step_size for the learning rate scheduler if it is of type step |  5 |
+| warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler if it is of type warmup_cosine |  0.45 |
+| warmup_cosine_lr_warmup_epochs | Value of warmup epochs for the learning rate scheduler if it is of type warmup_cosine |  2 |
+| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores |  1 |
+| validation_metric_type | metric computation method to use for validation metrics | voc |
+
 
 <b>For Object Detection (yolov5) </b>
+| Parameter Name       | Description           | Default  |
+| ------------- |-------------| -----|
+| learning_rate | Initial learning rate |  0.01 |
+| number_of_epochs | Number of training epochs |  30 |
+| training_batch_size | Training batch size |  16 |
+| validation_batch_size | Validation batch size |  16 |
+| early_stopping | Enable early stopping logic during training |  True |
+| early_stopping_patience | Minimum number of epochs/validation evaluations with no primary metric score improvement before the run is stopped |  5 |
+| early_stopping_delay | Minimum number of epochs/validation evaluations to wait before primary metric score improvement is tracked for early stopping |  5 |
+| optimizer | Type of optimizer in {sgd, adam, adamw} |  OptimizerType.SGD |
+| momentum | Value of momentum for the optimizer if it is of type sgd |  0.9 |
+| weight_decay | Value of weight_decay for the optimizer if it is of type sgd or adam or adamw |  1e-4 |
+| nesterov | Enable nesterov for the optimizer if it is of type sgd |  True |
+| beta1 | Value of beta1 for the optimizer if it is of type adam or adamw |  0.9 |
+| beta2 | Value of beta2 for the optimizer if it is of type adam or adamw |  0.999 |
+| amsgrad | Enable amsgrad for the optimizer if it is of type adam or adamw |  False |
+| lr_scheduler | Type of learning rate scheduler in {warmup_cosine, step} |  LrSchedulerType.WARMUP_COSINE |
+| step_lr_gamma | Value of gamma for the learning rate scheduler if it is of type step |  0.5 |
+| step_lr_step_size | Value of step_size for the learning rate scheduler if it is of type step |  5 |
+| warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler if it is of type warmup_cosine |  0.45 |
+| warmup_cosine_lr_warmup_epochs | Value of warmup epochs for the learning rate scheduler if it is of type warmup_cosine |  2 |
+| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores |  1 |
+| img_size | image size for train and val |  640 |
+| model_size | model size (small, medium, large, xlarge) |  'medium' |
 
-<b>For Object Instance Segmentation </b>
+
+<b>For Instance Segmentation </b>
+| Parameter Name       | Description           | Default  |
+| ------------- |-------------| -----|
+| learning_rate | Initial learning rate | 0.005 |
+| number_of_epochs | Number of training epochs | 15 |
+| training_batch_size | Training batch size | 2 |
+| validation_batch_size | Validation batch size | 1 |
+| early_stopping | Enable early stopping logic during training |  True |
+| early_stopping_patience | Minimum number of epochs/validation evaluations with no primary metric score improvement before the run is stopped |  5 |
+| early_stopping_delay | Minimum number of epochs/validation evaluations to wait before primary metric score improvement is tracked for early stopping |  5 |
+| optimizer | Type of optimizer in {sgd, adam, adamw} | sgd |
+| momentum | Value of momentum for the optimizer if it is of type sgd |  0.9 |
+| weight_decay | Value of weight_decay for the optimizer if it is of type sgd or adam or adamw |  1e-4 |
+| nesterov | Enable nesterov for the optimizer if it is of type sgd |  True |
+| beta1 | Value of beta1 for the optimizer if it is of type adam or adamw |  0.9 |
+| beta2 | Value of beta2 for the optimizer if it is of type adam or adamw |  0.999 |
+| amsgrad | Enable amsgrad for the optimizer if it is of type adam or adamw |  False |
+| lr_scheduler | Type of learning rate scheduler in {warmup_cosine, step} | warmup_cosine |
+| step_lr_gamma | Value of gamma for the learning rate scheduler if it is of type step |  0.5 |
+| step_lr_step_size | Value of step_size for the learning rate scheduler if it is of type step |  5 |
+| warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler if it is of type warmup_cosine |  0.45 |
+| warmup_cosine_lr_warmup_epochs | Value of warmup epochs for the learning rate scheduler if it is of type warmup_cosine |  2 |
+| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores |  1 |
+| validation_metric_type | metric computation method to use for validation metrics | voc |
+
 
 
 ### Sweeping hyperparameters for your model
