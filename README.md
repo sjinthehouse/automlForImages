@@ -210,9 +210,12 @@ You can optionally specify the maximum time budget for your AutoML Viison experi
 
 ### Early stopping
 You can optionally enable early stopping for your AutoML Vision experiment using `enable_early_stopping` parameter. 
+| Parameter Name       | Description           | Default  |
+| ------------- |-------------| -----|
 | early_stopping | Enable early stopping logic during training |  True |
 | early_stopping_patience | Minimum number of epochs/validation evaluations with no primary metric score improvement before the run is stopped |  5 |
 | early_stopping_delay | Minimum number of epochs/validation evaluations to wait before primary metric score improvement is tracked for early stopping |  5 |
+<br>
 
 ## Sample notebooks
 Please refer to the following sample notebooks to see how you can use AutoML Vision with sample data in your scenario -
