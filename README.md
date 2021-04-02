@@ -246,13 +246,42 @@ In addition to controlling the model algorthm used, you can also tune hyperparam
 | validation_metric_type | metric computation method to use for validation metrics | voc |
 
 
-
 ### Sweeping hyperparameters for your model
+When training vision models, model performance depends heavily on the hyperparameter values selected. Often times, you might want to tune the hyperparameters to get optimal performance.  
+AutoML Vision allows you to sweep hyperparameters to find the optimal settings for your model. It leverages the hyperparameter tuning capabilities in Azure Machine Learning - you can learn more [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters).
 
+#### Define the parameter search space
+You can define the model algorithms and hyperparameters to sweep in the parameter space. See [Configure model algorithms and hyperparameters](#Configure-model-algorithms-and-hyperparameters) for the list of supported model algorithms and hyperparameters for each task type. Details on supported distributions for discrete and continuous hyperparameters can be found [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters#define-the-search-space).
 
 #### Sampling methods for the sweep
+When sweeping hyperparameters, you need to specify the sampling method to use for sweeping over the defined parameter space. AutoML Vision supports the following sampling methods using the `hyperparameter_sampling` parameter -s
+<ul>
+<li>Random Sampling</li>
+<li>Grid Sampling</li>
+<li>Bayesian Sampling</li>
+</ul>
+
+You can learn more about each of these sampling methods [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters#sampling-the-hyperparameter-space).
+
 #### Early termination policies
+When using AutoML Vision to sweep hyperparameters for your vision models, you can automatically end poorly performing runs with an early termination policy. Early termination improves computational efficiency, saving compute resources that would have been otherwise spent on less promising configurations. AutoML Vision supports the following early termination policies using the `policy` parameter -
+<ul>
+<li>Bandit Policy</li>
+<li>Median Stopping Policy</li>
+<li>Truncation Selection Policy</li>
+</ul>
+
+If no termination policy is specified, all configurations are run to completion.  
+You can learn more about configuring the early termination policy for your hyperparameter sweep [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters#early-termination).
+
 #### Resources for the sweep
+You can control the resources spent on your hyperparameter sweep by specifying the `iterations` and the `max_concurrent_iterations` for the sweep.
+<ul>  
+<li>iterations (required when sweeping): Maximum number of configurations to sweep. Must be an integer between 1 and 1000. </li>
+<li>max_concurrent_iterations: (optional) Maximum number of runs that can run concurrently. If not specified, all runs launch in parallel. If specified, must be an integer between 1 and 100.  (NOTE: The number of concurrent runs is gated on the resources available in the specified compute target. Ensure that the compute target has the available resources for the desired concurrency.)</li>
+</ul>
+
 ### Optimization metric
 ### Experiment budget
+### Early stopping
 ## Sample notebooks
