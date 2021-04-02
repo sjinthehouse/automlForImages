@@ -213,8 +213,8 @@ You can optionally enable early stopping for your AutoML Vision experiment using
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | early_stopping | Enable early stopping logic during training |  True |
-| early_stopping_patience | Minimum number of epochs/validation evaluations with no primary metric score improvement before the run is stopped |  5 |
-| early_stopping_delay | Minimum number of epochs/validation evaluations to wait before primary metric score improvement is tracked for early stopping |  5 |
+| early_stopping_patience | Minimum number of epochs/validation evaluations<br> with no primary metric score improvement before the run is stopped |  5 |
+| early_stopping_delay | Minimum number of epochs/validation evaluations<br> to wait before primary metric score improvement is tracked for early stopping |  5 |
 <br>
 
 ## Sample notebooks
