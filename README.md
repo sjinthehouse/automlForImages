@@ -69,7 +69,7 @@ from azureml.core import Dataset
 
 training_dataset = _LabeledDatasetFactory.from_json_lines(
         task=LabeledDatasetTask.OBJECT_DETECTION, path=ds.path('odFridgeObjects/odFridgeObjects.jsonl'))
-    training_dataset = training_dataset.register(workspace=ws, name=training_dataset_name)
+training_dataset = training_dataset.register(workspace=ws, name=training_dataset_name)
 ```
 
 You can optionally specify another labeled dataset as a validation dataset to be used for your model. If no validation dataset is specified, 20% of your training data will be used for validation.
@@ -169,7 +169,7 @@ AutoML Vision allows you to sweep hyperparameters to find the optimal settings f
 You can define the model algorithms and hyperparameters to sweep in the parameter space. See [Configure model algorithms and hyperparameters](#Configure-model-algorithms-and-hyperparameters) for the list of supported model algorithms and hyperparameters for each task type. Details on supported distributions for discrete and continuous hyperparameters can be found [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters#define-the-search-space).
 
 #### Sampling methods for the sweep
-When sweeping hyperparameters, you need to specify the sampling method to use for sweeping over the defined parameter space. AutoML Vision supports the following sampling methods using the `hyperparameter_sampling` parameter -s
+When sweeping hyperparameters, you need to specify the sampling method to use for sweeping over the defined parameter space. AutoML Vision supports the following sampling methods using the `hyperparameter_sampling` parameter -
 <ul>
 <li>Random Sampling</li>
 <li>Grid Sampling</li>
@@ -201,8 +201,8 @@ You can specify the metric to be used for model optimization and hyperparameter 
 <ul>
 <li>'accuracy' for image-classification</li>
 <li>'IOU' for image-classification-multi-label</li>
-<li>'mean_avverage_precision' for image-object-detection</li>
-<li>'mean_avverage_precision' for image-instance-segmentation</li>
+<li>'mean_average_precision' for image-object-detection</li>
+<li>'mean_average_precision' for image-instance-segmentation</li>
 </ul>
 
 ### Experiment budget
