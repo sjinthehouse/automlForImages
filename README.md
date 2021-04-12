@@ -98,7 +98,7 @@ The model algorithm is required and is passed in via `model_name` parameter. You
 
 #### Currently supported model algorithms:
 <ul>
-<li><b>Image Classification (multi-class and multi-label):</b> 'resnet18', 'resnet50', 'mobilenetv2', 'seresnext'</li>
+<li><b>Image Classification (multi-class and multi-label):</b> 'resnet18', 'resnet34', 'resnet50', 'mobilenetv2', 'seresnext'</li>
 <li><b>Object Detection: </b>'yolov5', 'fasterrcnn_resnet50_fpn', 'fasterrcnn_resnet34_fpn', 'fasterrcnn_resnet18_fpn', 'retinanet_resnet50_fpn'</li>
 <li><b>Instance segmentation: </b>'maskrcnn_resnet50_fpn'</li>
 </ul>
@@ -139,8 +139,6 @@ The following tables list out the details of the hyperparameters  and their defa
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | detailed_metrics | Report detailed metrics like per class/sample f1, f2, precision, recall scores |  True |
-| imbalance_rate_threshold | data imbalance ratio (#data from largest class /#data from smallest class) |  2 |
-| test_ratio |  |  0.2 |
 | weighted_loss | applying class-level weighting in weighted loss for class imbalance |  0 |
 
 <br>
