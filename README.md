@@ -129,8 +129,8 @@ The following tables list out the details of the hyperparameters  and their defa
 | beta1 | Value of beta1 for the optimizer if it is of type adam<br> or adamw |  0.9 |
 | beta2 | Value of beta2 for the optimizer if it is of type adam<br> or adamw |  0.999 |
 | amsgrad | Enable amsgrad for the optimizer if it is of type adam<br> or adamw |  False |
-| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores |   |
-| split_ratio | Validation split ratio when splitting train data into random train<br> and validation subsets if validation data is not defined |   |
+| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores | 1  |
+| split_ratio | Validation split ratio when splitting train data into random train<br> and validation subsets if validation data is not defined | 0.2  |
 | checkpoint_frequency | Frequency to store model checkpoints. By default, we save checkpoint<br> at the epoch which has the best primary metric score on validation  |   |
 | layers_to_freeze | How many layers to freeze for your model. Available layers for each model is<br> following: {}. For instance, passing 2 as value for seresnext means you want to<br> freeze layer0 and layer1. If this is not specified, we default to:<br> no frozen layer for resnet18/34/50, mobilenetv2, seresnext and yolov5,<br> while the first two layers are frozen in resnet backbone for fasterrcnn, maskrcnn<br> and retinanet.| No default for this argument  |
 
