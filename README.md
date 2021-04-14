@@ -113,10 +113,15 @@ The following tables list out the details of the hyperparameters  and their defa
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| learning_rate | Initial learning rate |  0.01 for multi-class classification <br> 0.035 for multi-label classification <br> 0.005 for object detection <br> 0.035 for instance segmentation|
 | number_of_epochs | Number of training epochs |  15 |
 | training_batch_size | Training batch size |  78 for multi-class classification <br> 78 for multi-label classification <br> 12 for object detection <br> 12 for instance segmentation |
 | validation_batch_size | Validation batch size |  78 for multi-class classification <br> 78 for multi-label classification <br> 1 for object detection <br> 1 for instance segmentation |
+| learning_rate | Initial learning rate |  0.01 for multi-class classification <br> 0.035 for multi-label classification <br> 0.005 for object detection <br> 0.035 for instance segmentation|
+| lr_scheduler | Type of learning rate scheduler in {warmup_cosine,<br> step} | warmup_cosine |
+| step_lr_gamma | Value of gamma for the learning rate scheduler<br> if it is of type step |  0.5 |
+| step_lr_step_size | Value of step_size for the learning rate scheduler<br> if it is of type step |  5 |
+| warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler<br> if it is of type warmup_cosine |  0.45 |
+| warmup_cosine_lr_warmup_epochs | Value of warmup epochs for the learning rate scheduler<br> if it is of type warmup_cosine |  2 |
 | optimizer | Type of optimizer in {sgd, adam, adamw} | sgd |
 | momentum | Value of momentum for the optimizer if it is of type sgd |  0.9 |
 | weight_decay | Value of weight_decay for the optimizer if it is of type sgd<br> or adam or adamw |  1e-4 |
@@ -124,12 +129,10 @@ The following tables list out the details of the hyperparameters  and their defa
 | beta1 | Value of beta1 for the optimizer if it is of type adam<br> or adamw |  0.9 |
 | beta2 | Value of beta2 for the optimizer if it is of type adam<br> or adamw |  0.999 |
 | amsgrad | Enable amsgrad for the optimizer if it is of type adam<br> or adamw |  False |
-| lr_scheduler | Type of learning rate scheduler in {warmup_cosine,<br> step} | warmup_cosine |
-| step_lr_gamma | Value of gamma for the learning rate scheduler<br> if it is of type step |  0.5 |
-| step_lr_step_size | Value of step_size for the learning rate scheduler<br> if it is of type step |  5 |
-| warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler<br> if it is of type warmup_cosine |  0.45 |
-| warmup_cosine_lr_warmup_epochs | Value of warmup epochs for the learning rate scheduler<br> if it is of type warmup_cosine |  2 |
-| evaluation_frequency | Frequency to evaluate validation dataset to get<br> metric scores |  1 |
+| amsgrad | Enable amsgrad for the optimizer if it is of type adam<br> or adamw |  False |
+| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores |   |
+| split_ratio | Validation split ratio when splitting train data into random train<br> and validation subsets if validation data is not defined |   |
+| checkpoint_frequency | Frequency to store model checkpoints. By default, we save checkpoint<br> at the epoch which has the best primary metric score on validation  |   |
 
 <br>
 <b>Task-specific hyperparameters</b> 
