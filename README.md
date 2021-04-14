@@ -141,8 +141,9 @@ The following tables list out the details of the hyperparameters  and their defa
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| detailed_metrics | Report detailed metrics like per class/sample f1, f2, precision, recall scores |  True |
-| weighted_loss | applying class-level weighting in weighted loss for class imbalance |  0 |
+| weighted_loss | 0 for no weighted loss<br> 1 for weighted loss with sqrt(class_weights),<br> and 2 for weighted loss with class_weights |  0 |
+| resize_size | Image size to which to resize before cropping for validation dataset | 256  |
+| crop_size | Image crop size which is input to your neural network | 224 |
 
 <br>
 <b>For Object Detection and Instance Segmentation - </b>  
