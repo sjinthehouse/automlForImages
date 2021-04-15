@@ -39,7 +39,7 @@ AutoML allows you to easily train models for Image Classification, Object Detect
 AutoML Vision supports the following task types -
 <ul>
 <li>image-classification</li>
-<li>image-classification-multi-label</li>
+<li>image-multi-labeling</li>
 <li>image-object-detection</li>
 <li>image-instance-segmentation</li>
 </ul>
@@ -48,7 +48,7 @@ This task type is a required parameter and is passed in using the `task` paramet
 
 ```python
 from azureml.train.automl import AutoMLVisionConfig
-automl_vision_config = AutoMLVisionConfig(task = 'image-object-detection')
+automl_vision_config = AutoMLVisionConfig(task='image-object-detection')
 ```
 
 ### Training and Validation data
@@ -78,7 +78,7 @@ Training data is a required parameter and is passed in using the `training_data`
 
 ```python
 from azureml.train.automl import AutoMLVisionConfig
-automl_vision_config = AutoMLVisionConfig(training_data = training_dataset)
+automl_vision_config = AutoMLVisionConfig(training_data=training_dataset)
 ```
 
 ### Compute to run experiment
@@ -88,7 +88,7 @@ The compute target is a required parameter and is passed in using the `compute_t
 
 ```python
 from azureml.train.automl import AutoMLVisionConfig
-automl_vision_config = AutoMLVisionConfig(compute_target = compute_target)
+automl_vision_config = AutoMLVisionConfig(compute_target=compute_target)
 ```
 
 ### Configure model algorithms and hyperparameters
@@ -113,26 +113,26 @@ The following tables list out the details of the hyperparameters  and their defa
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| number_of_epochs | Number of training epochs |  15 |
-| training_batch_size | Training batch size |  78 for multi-class classification <br> 78 for multi-label classification <br> 12 for object detection <br> 12 for instance segmentation |
-| validation_batch_size | Validation batch size |  78 for multi-class classification <br> 78 for multi-label classification <br> 1 for object detection <br> 1 for instance segmentation |
-| learning_rate | Initial learning rate |  0.01 for multi-class classification <br> 0.035 for multi-label classification <br> 0.005 for object detection <br> 0.035 for instance segmentation|
-| lr_scheduler | Type of learning rate scheduler in {warmup_cosine,<br> step} | warmup_cosine |
-| step_lr_gamma | Value of gamma for the learning rate scheduler<br> if it is of type step |  0.5 |
-| step_lr_step_size | Value of step_size for the learning rate scheduler<br> if it is of type step |  5 |
-| warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler<br> if it is of type warmup_cosine |  0.45 |
-| warmup_cosine_lr_warmup_epochs | Value of warmup epochs for the learning rate scheduler<br> if it is of type warmup_cosine |  2 |
+| number_of_epochs | Number of training epochs | 15 |
+| training_batch_size | Training batch size | 78 for multi-class classification <br>78 for multi-label classification <br>12 for object detection <br>12 for instance segmentation |
+| validation_batch_size | Validation batch size | 78 for multi-class classification <br> 78 for multi-label classification <br>1 for object detection <br>1 for instance segmentation |
+| learning_rate | Initial learning rate | 0.01 for multi-class classification <br>0.035 for multi-label classification <br>0.005 for object detection <br>0.035 for instance segmentation |
+| lr_scheduler | Type of learning rate scheduler in {warmup_cosine,<br>step} | warmup_cosine |
+| step_lr_gamma | Value of gamma for the learning rate scheduler<br>if it is of type step | 0.5 |
+| step_lr_step_size | Value of step_size for the learning rate scheduler<br>if it is of type step | 5 |
+| warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler<br>if it is of type warmup_cosine | 0.45 |
+| warmup_cosine_lr_warmup_epochs | Value of warmup epochs for the learning rate scheduler<br>if it is of type warmup_cosine | 2 |
 | optimizer | Type of optimizer in {sgd, adam, adamw} | sgd |
-| momentum | Value of momentum for the optimizer if it is of type sgd |  0.9 |
-| weight_decay | Value of weight_decay for the optimizer if it is of type sgd<br> or adam or adamw |  1e-4 |
-| nesterov | Enable nesterov for the optimizer if it is of type sgd |  True |
-| beta1 | Value of beta1 for the optimizer if it is of type adam<br> or adamw |  0.9 |
-| beta2 | Value of beta2 for the optimizer if it is of type adam<br> or adamw |  0.999 |
-| amsgrad | Enable amsgrad for the optimizer if it is of type adam<br> or adamw |  False |
-| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores | 1  |
-| split_ratio | Validation split ratio when splitting train data into random train<br> and validation subsets if validation data is not defined | 0.2  |
-| checkpoint_frequency | Frequency to store model checkpoints. By default, we save checkpoint<br> at the epoch which has the best primary metric score on validation  |   |
-| layers_to_freeze | How many layers to freeze for your model. Available layers for each model is<br> following: {}. For instance, passing 2 as value for seresnext means you want to<br> freeze layer0 and layer1. If this is not specified, we default to:<br> no frozen layer for resnet18/34/50, mobilenetv2, seresnext and yolov5,<br> while the first two layers are frozen in resnet backbone for fasterrcnn, maskrcnn<br> and retinanet.| No default for this argument  |
+| momentum | Value of momentum for the optimizer if it is of type sgd | 0.9 |
+| weight_decay | Value of weight_decay for the optimizer if it is of type sgd<br>or adam or adamw | 1e-4 |
+| nesterov | Enable nesterov for the optimizer if it is of type sgd | 1 |
+| beta1 | Value of beta1 for the optimizer if it is of type adam<br>or adamw | 0.9 |
+| beta2 | Value of beta2 for the optimizer if it is of type adam<br>or adamw | 0.999 |
+| amsgrad | Enable amsgrad for the optimizer if it is of type adam<br>or adamw | 0 |
+| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores | 1 |
+| split_ratio | Validation split ratio when splitting train data into random train<br>and validation subsets if validation data is not defined | 0.2 |
+| checkpoint_frequency | Frequency to store model checkpoints. By default, we save checkpoint<br>at the epoch which has the best primary metric score on validation  |   |
+| layers_to_freeze | How many layers to freeze for your model. Available layers for each model is<br>following: {}. For instance, passing 2 as value for seresnext means you want to<br>freeze layer0 and layer1. If this is not specified, we default to:<br>no frozen layer for resnet18/34/50, mobilenetv2, seresnext and yolov5,<br>while the first two layers are frozen in resnet backbone for fasterrcnn, maskrcnn<br>and retinanet.| No default for this argument |
 
 <br>
 <b>Task-specific hyperparameters</b> 
@@ -141,7 +141,7 @@ The following tables list out the details of the hyperparameters  and their defa
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| weighted_loss | 0 for no weighted loss<br> 1 for weighted loss with sqrt(class_weights),<br> and 2 for weighted loss with class_weights |  0 |
+| weighted_loss | 0 for no weighted loss<br>1 for weighted loss with sqrt(class_weights),<br>and 2 for weighted loss with class_weights | 0 |
 | resize_size | Image size to which to resize before cropping for validation dataset | 256  |
 | crop_size | Image crop size which is input to your neural network | 224 |
 
@@ -159,8 +159,8 @@ The following tables list out the details of the hyperparameters  and their defa
 <b>For yolov5 - </b>
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| img_size | image size for train and val |  640 |
-| model_size | model size (small, medium, large, xlarge) |  'medium' |
+| img_size | image size for train and val | 640 |
+| model_size | model size (small, medium, large, xlarge) | 'medium' |
 <br>
 
 ### Sweeping hyperparameters for your model
@@ -214,9 +214,9 @@ You can optionally specify the maximum time budget for your AutoML Viison experi
 You can optionally enable early stopping for your AutoML Vision experiment using `enable_early_stopping` parameter. 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| early_stopping | Enable early stopping logic during training |  True |
-| early_stopping_patience | Minimum number of epochs/validation evaluations<br> with no primary metric score improvement before the run is stopped |  5 |
-| early_stopping_delay | Minimum number of epochs/validation evaluations<br> to wait before primary metric score improvement is tracked for early stopping |  5 |
+| early_stopping | Enable early stopping logic during training | 1 |
+| early_stopping_patience | Minimum number of epochs/validation evaluations<br> with no primary metric score improvement before the run is stopped | 5 |
+| early_stopping_delay | Minimum number of epochs/validation evaluations<br> to wait before primary metric score improvement is tracked for early stopping | 5 |
 <br>
 
 ## Sample notebooks
