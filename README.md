@@ -151,6 +151,11 @@ The following tables list out the details of the hyperparameters  and their defa
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | validation_metric_type | metric computation method to use for validation metrics | voc |
+| min_size | Minimum size of the image to be rescaled before feeding it to the backbone | 600 |
+| max_size | Maximum size of the image to be rescaled before feeding it to the backbone | 1333 |
+| box_score_thresh | During inference, only return proposals with a classification score<br> greater than box_score_thresh | 0.3 |
+| box_nms_thresh | NMS threshold for the prediction head. Used during inference | 0.5 |
+| box_detections_per_img | Maximum number of detections per image, for all classes | 100 |
 
 <br>
 <b>Model-specific hyperparameters</b> 
@@ -161,6 +166,9 @@ The following tables list out the details of the hyperparameters  and their defa
 | ------------- |-------------| -----|
 | img_size | image size for train and val | 640 |
 | model_size | model size (small, medium, large, xlarge) | 'medium' |
+| multi_scale | Enable multi-scale image by varying image size by +/- 50% | False |
+| box_score_thresh | During inference, only return proposals with a score<br> greater than box_score_thresh. The score is the multiplication of<br> the objectness score and classification probability | 0.001 |
+| box_iou_thresh | IOU threshold used during inference in nms post processing | 0.5 |
 <br>
 
 ### Sweeping hyperparameters for your model
