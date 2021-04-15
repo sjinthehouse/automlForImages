@@ -166,7 +166,7 @@ The following tables list out the details of the hyperparameters  and their defa
 | ------------- |-------------| -----|
 | img_size | image size for train and val | 640 |
 | model_size | model size (small, medium, large, xlarge) | 'medium' |
-| multi_scale | Enable multi-scale image by varying image size by +/- 50% | False |
+| multi_scale | Enable multi-scale image by varying image size by +/- 50% | 0 |
 | box_score_thresh | During inference, only return proposals with a score<br> greater than box_score_thresh. The score is the multiplication of<br> the objectness score and classification probability | 0.001 |
 | box_iou_thresh | IOU threshold used during inference in nms post processing | 0.5 |
 <br>
