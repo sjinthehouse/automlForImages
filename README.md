@@ -106,10 +106,6 @@ Here is a sample JSONL file for Image classfication:
           "bottomX": "0",
           "bottomY": "1",
           "isCrowd": "true",
-          "mask":
-          {
-              "items": [12, 16, 56, 78]
-          }
       }
   }
   {
@@ -128,10 +124,6 @@ Here is a sample JSONL file for Image classfication:
           "bottomX": "0",
           "bottomY": "1",
           "isCrowd": "false",
-          "mask":
-          {
-              "items": [32, 46, 86, 98, 1098]
-          }
       }
   }
   ```
