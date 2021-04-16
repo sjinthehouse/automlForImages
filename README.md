@@ -3,7 +3,7 @@
 ## AutoML Vision Overview
 
 ### What is AutoML Vision?
-AutoML is an [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/) feature, that empowers both professional and citizen data scientists to build machine learning models rapidly. Since its launch, AutoML has helped accelerate model building for essential machine learning tasks like Classification, Regression and Time-series Forecasting. With the preview of AutoML Vision, there will be added support for Vision tasks. Data scientists will be able to easily generate models trained on image data for scenarios like Image Classification, Object Detection and Instance Segmentation. 
+AutoML is an [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/) feature, that empowers both professional and citizen data scientists to build machine learning models rapidly. Since its launch, AutoML has helped accelerate model building for essential machine learning tasks like Classification, Regression and Time-series Forecasting. With the preview of AutoML Vision, there will be added support for Vision tasks. Data scientists will be able to easily generate models trained on image data for scenarios like Image Classification (multi-class, multi-label), Object Detection and Instance Segmentation. 
 
 Customers across various industries are looking to leverage machine learning to build models that can process image data. Applications range from image classification of fashion photos to PPE detection in industrial environments. Customers want a solution to easily build models, controlling the model training to generate the optimal model for their training data, and a way to easily manage these ML models end-to-end. While Azure Machine Learning offers a solution for managing the end-to-end ML Lifecycle, customers currently have to rely on the tedious process of custom training their image models. Iteratively finding the right set of model algorithms and hyperparameters for these scenarios typically require significant data scientist effort.
 
@@ -140,7 +140,7 @@ training_dataset = _LabeledDatasetFactory.from_json_lines(
 training_dataset = training_dataset.register(workspace=ws, name=training_dataset_name)
 ```
 
-You can optionally specify another labeled dataset as a validation dataset to be used for your model. If no validation dataset is specified, 20% of your training data will be used for validation.
+You can optionally specify another labeled dataset as a validation dataset to be used for your model. If no validation dataset is specified, 20% of your training data will be used for validation by default, unless you pass split_ratio argument with a different value.
 
 Training data is a required parameter and is passed in using the `training_data` parameter. Validation data is optional and is passed in using the `validation_data` parameter of the AutoMLVisionConfig. For example: 
 
@@ -181,11 +181,11 @@ The following tables list out the details of the hyperparameters  and their defa
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| number_of_epochs | Number of training epochs | 15 |
-| training_batch_size | Training batch size | 78 for multi-class classification <br>78 for multi-label classification <br>12 for object detection <br>12 for instance segmentation |
-| validation_batch_size | Validation batch size | 78 for multi-class classification <br> 78 for multi-label classification <br>1 for object detection <br>1 for instance segmentation |
-| learning_rate | Initial learning rate | 0.01 for multi-class classification <br>0.035 for multi-label classification <br>0.005 for object detection <br>0.035 for instance segmentation |
-| lr_scheduler | Type of learning rate scheduler in {warmup_cosine,<br>step} | warmup_cosine |
+| number_of_epochs | Number of training epochs, <br> Optional, Positive Integer | 15 for all (except yolov5), <br> 30 for yolov5 |
+| training_batch_size | Training batch size, <br> Optional, Positive Integer | 78 for Image classification, <br> 2 for object detection (except yolov5) and instance segmentation, <br> 16 for yolov5 |
+| validation_batch_size | Validation batch size, <br> Optional, Positive Integer | 78 for Image classification, <br> 1 for object detection (except yolov5) and instance segmentation, <br> 16 for yolov5 |
+| learning_rate | Initial learning rate, <br> Optional, float in [0, 1] | 0.01 for multi-class classification, <br> 0.035 for multi-label classification, <br> 0.005 for object detection (except yolov5) and instance segmentation, <br> 0.01 for yolov5 |
+| lr_scheduler | Type of learning rate scheduler, <br> Optional, one of {warmup_cosine, step} | warmup_cosine |
 | step_lr_gamma | Value of gamma for the learning rate scheduler<br>if it is of type step | 0.5 |
 | step_lr_step_size | Value of step_size for the learning rate scheduler<br>if it is of type step | 5 |
 | warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler<br>if it is of type warmup_cosine | 0.45 |
