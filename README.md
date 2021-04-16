@@ -181,11 +181,11 @@ The following tables list out the details of the hyperparameters  and their defa
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| number_of_epochs | Number of training epochs, <br> Optional, Positive Integer | 15 for all (except yolov5), <br> 30 for yolov5 |
-| training_batch_size | Training batch size, <br> Optional, Positive Integer | 78 for Image classification, <br> 2 for object detection (except yolov5) and instance segmentation, <br> 16 for yolov5 |
-| validation_batch_size | Validation batch size, <br> Optional, Positive Integer | 78 for Image classification, <br> 1 for object detection (except yolov5) and instance segmentation, <br> 16 for yolov5 |
-| learning_rate | Initial learning rate, <br> Optional, float in [0, 1] | 0.01 for multi-class classification, <br> 0.035 for multi-label classification, <br> 0.005 for object detection (except yolov5) and instance segmentation, <br> 0.01 for yolov5 |
-| lr_scheduler | Type of learning rate scheduler, <br> Optional, one of {warmup_cosine, step} | warmup_cosine |
+| number_of_epochs | Number of training epochs, <br> `Optional, Positive Integer` |  1. All (except yolov5) : 15 <br> 2. yolov5: 30 |
+| training_batch_size | Training batch size, <br> `Optional, Positive Integer` | 1. Image classification: 78 <br> 2. Object detection (except yolov5), instance segmentation: 2 <br> 3. yolov5: 16 |
+| validation_batch_size | Validation batch size, <br> `Optional, Positive Integer` | 1. Image classification: 78 <br> 2. Object detection (except yolov5), instance segmentation: 2 <br> 3. yolov5: 16  |
+| learning_rate | Initial learning rate, <br> `Optional, float in [0, 1]` | 1. Multi-class classification: 0.01 <br> 2. Multi-label classification: 0.035 <br> 3. Object detection (except yolov5), instance segmentation: 0.05  <br> 4. yolov5: 0.01  |
+| lr_scheduler | Type of learning rate scheduler, <br> `Optional, one of {warmup_cosine, step}` | warmup_cosine |
 | step_lr_gamma | Value of gamma for the learning rate scheduler<br>if it is of type step | 0.5 |
 | step_lr_step_size | Value of step_size for the learning rate scheduler<br>if it is of type step | 5 |
 | warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler<br>if it is of type warmup_cosine | 0.45 |
