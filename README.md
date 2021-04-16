@@ -240,3 +240,6 @@ automl_vision_config = AutoMLVisionConfig(arguments=arguments)
 Please refer to the following sample notebooks to see how you can use AutoML Vision with sample data in your scenario -
 
 Object Detection - [AutoML Vision Object Detection Sample Notebook](./ObjectDetection/AutoMLVision_ObjectDetection_SampleNotebook.ipynb)
+Multi-Class Classification - [AutoML Vision Multi-Class Classification Sample Notebook](./MultiClass/AutoMLVision_MultiClass_SampleNotebook.ipynb)
+Multi-Label Classification - [AutoML Vision Multi-Label Classification Sample Notebook](./MultiLabel/AutoMLVision_MultiLabel_SampleNotebook.ipynb)
+Instance Segmentation - [AutoML Vision Instance Segmentation Sample Notebook](./InstanceSegmentation/AutoMLVision_InstanceSegmentation_SampleNotebook.ipynb)
