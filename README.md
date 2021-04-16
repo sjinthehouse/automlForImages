@@ -61,7 +61,83 @@ Labeled datasets are [Tabular datasets](https://docs.microsoft.com/en-us/python/
 <li>label: a json representation of the image label, based on the task type</li>
 </ul>
 
-Creation of labeled datasets is supported from data in JSONL format. If your training data is in a different format (e.g. pascal VOC), you can leverage the helper scripts included with the sample notebooks in this repo to convert the data to JSONL. Once your data is in JSONL format, you can create a labeled dataset using this snippet -
+Creation of labeled datasets is supported from data in JSONL format. 
+
+#### JSONL sample schema for each task type 
+Here is a sample JSONL file for Image classfication:
+```python
+{
+      "image_url": "AmlDatastore://image_data/Image_01.png",
+      "image_details":
+      {
+          "format": "png",
+          "width": "2230px",
+          "height": "4356px"
+      },
+      "label": "cat"
+  }
+  {
+      "image_url": "AmlDatastore://image_data/Image_02.jpeg",
+      "image_details":
+      {
+          "format": "jpeg",
+          "width": "3456px",
+          "height": "3467px"
+      },
+      "label": "dog"
+  }
+  ```
+  
+  And here is a sample JSONL file for Object Detection:
+  ```python
+  {
+      "image_url": "AmlDatastore://image_data/Image_01.png",
+      "image_details":
+      {
+          "format": "png",
+          "width": "2230px",
+          "height": "4356px"
+      },
+      "label":
+      {
+          "label": "cat",
+          "topX": "1",
+          "topY": "0",
+          "bottomX": "0",
+          "bottomY": "1",
+          "isCrowd": "true",
+          "mask":
+          {
+              "items": [12, 16, 56, 78]
+          }
+      }
+  }
+  {
+      "image_url": "AmlDatastore://image_data/Image_02.png",
+      "image_details":
+      {
+          "format": "jpeg",
+          "width": "1230px",
+          "height": "2356px"
+      },
+      "label":
+      {
+          "label": "dog",
+          "topX": "0",
+          "topY": "1",
+          "bottomX": "0",
+          "bottomY": "1",
+          "isCrowd": "false",
+          "mask":
+          {
+              "items": [32, 46, 86, 98, 1098]
+          }
+      }
+  }
+  ```
+  
+
+If your training data is in a different format (e.g. pascal VOC), you can leverage the helper scripts included with the sample notebooks in this repo to convert the data to JSONL. Once your data is in JSONL format, you can create a labeled dataset using this snippet -
 
 ```python
 from azureml.contrib.dataset.labeled_dataset import _LabeledDatasetFactory, LabeledDatasetTask
