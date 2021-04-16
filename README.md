@@ -44,7 +44,7 @@ AutoML Vision supports the following task types -
 <li>image-instance-segmentation</li>
 </ul>
 
-This task type is a required parameter and is passed in using the `task` parameter in the AutoMLVisionConfig For e.g. 
+This task type is a required parameter and is passed in using the `task` parameter in the AutoMLVisionConfig. For example: 
 
 ```python
 from azureml.train.automl import AutoMLVisionConfig
@@ -74,7 +74,7 @@ training_dataset = training_dataset.register(workspace=ws, name=training_dataset
 
 You can optionally specify another labeled dataset as a validation dataset to be used for your model. If no validation dataset is specified, 20% of your training data will be used for validation.
 
-Training data is a required parameter and is passed in using the `training_data` parameter. Validation data is optional and is passed in using the `validation_data` parameter of the AutoMLVisionConfig. For e.g. 
+Training data is a required parameter and is passed in using the `training_data` parameter. Validation data is optional and is passed in using the `validation_data` parameter of the AutoMLVisionConfig. For example: 
 
 ```python
 from azureml.train.automl import AutoMLVisionConfig
@@ -84,7 +84,7 @@ automl_vision_config = AutoMLVisionConfig(training_data=training_dataset)
 ### Compute to run experiment
 You will need to provide a [Compute Target](https://docs.microsoft.com/azure/machine-learning/service/concept-azure-machine-learning-architecture#compute-target) that will be used for your AutoML model training. AutoML Vision models require GPU SKUs and support NC and ND families. Using a compute target with a multi-GPU VM SKU will leverage the multiple GPUs to speed up training. Additionally, setting up a compute target with multiple nodes will allow for faster model training by leveraging parallelism, when tuning hyperparameters for your model.
 
-The compute target is a required parameter and is passed in using the `compute_target` parameter of the AutoMLVisionConfig. For e.g. 
+The compute target is a required parameter and is passed in using the `compute_target` parameter of the AutoMLVisionConfig. For example: 
 
 ```python
 from azureml.train.automl import AutoMLVisionConfig
@@ -165,7 +165,7 @@ The following tables list out the details of the hyperparameters  and their defa
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | img_size | image size for train and val | 640 |
-| model_size | model size (small, medium, large, xlarge) | 'medium' |
+| model_size | model size (small, medium, large, xlarge) | medium |
 | multi_scale | Enable multi-scale image by varying image size by +/- 50% | 0 |
 | box_score_thresh | During inference, only return proposals with a score<br> greater than box_score_thresh. The score is the multiplication of<br> the objectness score and classification probability | 0.001 |
 | box_iou_thresh | IOU threshold used during inference in nms post processing | 0.5 |
@@ -226,6 +226,15 @@ You can optionally enable early stopping for your AutoML Vision experiment using
 | early_stopping_patience | Minimum number of epochs/validation evaluations<br> with no primary metric score improvement before the run is stopped | 5 |
 | early_stopping_delay | Minimum number of epochs/validation evaluations<br> to wait before primary metric score improvement is tracked for early stopping | 5 |
 <br>
+
+### Arguments
+You can pass fixed settings or parameters that don't change during the parameter space sweep as arguments. Arguments are passed in name-value pairs and the name must be prefixed by a double dash. For example:
+
+```python
+from azureml.train.automl import AutoMLVisionConfig
+arguments = ["--early_stopping", 1, "--evaluation_frequency", 2]
+automl_vision_config = AutoMLVisionConfig(arguments=arguments)
+```
 
 ## Sample notebooks
 Please refer to the following sample notebooks to see how you can use AutoML Vision with sample data in your scenario -
