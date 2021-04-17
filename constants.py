@@ -1,4 +1,7 @@
 
+# By default, no frozen layer for resnet18/34/50, mobilenetv2, seresnext and yolov5, 
+# while the first two (backbone.body.conv1., backbone.body.layer1.) layers are frozen 
+# in resnet_backbone for fasterrcnn, maskrcnn and retinanet.
 supported_model_layer_info = {
     'resnet': [('conv1.', 'bn1.'), 'layer1.', 'layer2.', 'layer3.', 'layer4.'],
     'mobilenetv2': ['features.0.', 'features.1.', 'features.2.', 'features.3.', 'features.4.', 'features.5.',
@@ -8,8 +11,6 @@ supported_model_layer_info = {
     'seresnext': ['layer0.', 'layer1.', 'layer2.', 'layer3.', 'layer4.'],
     'yolov5_backbone': ['model.0.', 'model.1.', 'model.2.', 'model.3.', 'model.4.',
                         'model.5.', 'model.6.', 'model.7.', 'model.8.', 'model.9.'],
-    # By default, conv1 and layer1 are frozen in resnet backbone for fasterrcnn, maskrcnn and retinanet
-    # resnet_fpn_backbone() in automl.dnn.vision.common.pretrained_model_utilities
     'resnet_backbone': ['backbone.body.conv1.', 'backbone.body.layer1.', 'backbone.body.layer2.',
                         'backbone.body.layer3.', 'backbone.body.layer4.']
 }
