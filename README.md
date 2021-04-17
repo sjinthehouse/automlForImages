@@ -203,7 +203,7 @@ The following tables list out the details of the hyperparameters  and their defa
 | evaluation_frequency | Frequency to evaluate validation dataset<br>to get metric scores <br> `Optional, Positive Integer` | 1 |
 | split_ratio | Validation split ratio when splitting train<br>data into random train and validation<br>subsets if validation data is not defined <br> `Optional, float in [0, 1]` | 0.2 |
 | checkpoint_frequency | Frequency to store model checkpoints.<br>By default, we save checkpoint at the<br>epoch which has the best primary metric<br>on validation <br> `Optional, Positive Integer` | no default value <br> (checkpoint at epoch <br>with best primary metric)  |
-| layers_to_freeze | How many layers to freeze for your model.<br>Available freezable layers for each model <br>are [here](constants.py). For instance, passing 2 <br>as value for seresnext means freezing layer0 and layer1. <br> `Optional, Positive Integer` | no default value |
+| layers_to_freeze | How many layers to freeze for your model.<br>Available freezable layers for each model <br>are [here](constants.py). For instance, passing 2 <br>as value for seresnext means freezing layer0 <br>and layer1. <br> `Optional, Positive Integer` | no default value |
 
 <br>
 <b>Task-specific hyperparameters</b> 
