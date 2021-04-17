@@ -181,13 +181,13 @@ The following tables list out the details of the hyperparameters  and their defa
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| number_of_epochs | Number of training epochs <br> `Optional, Positive Integer` |  1. all (except yolov5) : 15 <br> 2. yolov5: 30 |
-| training_batch_size | Training batch size <br> `Optional, Positive Integer` | 1. image classification: 78 <br> 2. OD (except yolov5), IS: 2 <br> 3. yolov5: 16 |
-| validation_batch_size | Validation batch size <br> `Optional, Positive Integer` | 1. image classification: 78 <br> 2. OD (except yolov5), IS: 2 <br> 3. yolov5: 16  |
+| number_of_epochs | Number of training epochs <br> `Optional, Positive Integer` |  all (except yolov5) : 15 <br>yolov5: 30 |
+| training_batch_size | Training batch size <br> `Optional, Positive Integer` | image classification: 78 <br>OD (except yolov5), IS: 2 <br>yolov5: 16 |
+| validation_batch_size | Validation batch size <br> `Optional, Positive Integer` | image classification: 78 <br>OD (except yolov5), IS: 2 <br>yolov5: 16  |
 | early_stopping | Enable early stopping logic during training <br> `Optional, one of {0: False, 1: True}`| 1 |
 | early_stopping_patience | Min num of epochs/validation evaluations <br>with no primary metric improvement <br>before the run is stopped <br> `Optional, Positive Integer` | 5 |
 | early_stopping_delay | Min num of epochs/validation evaluations <br>to wait before primary metric improvement <br>is tracked for early stopping <br> `Optional, Positive Integer` | 5 |
-| learning_rate | Initial learning rate <br> `Optional, float in [0, 1]` | 1. multi-class: 0.01 <br> 2. multi-label: 0.035 <br> 3. OD (except yolov5), IS: 0.05  <br> 4. yolov5: 0.01  |
+| learning_rate | Initial learning rate <br> `Optional, float in [0, 1]` | multi-class: 0.01 <br>multi-label: 0.035 <br>OD (except yolov5), IS: 0.05  <br>yolov5: 0.01  |
 | lr_scheduler | Type of learning rate scheduler <br> `Optional, one of {warmup_cosine, step}` | warmup_cosine |
 | step_lr_gamma | Value of gamma <br>for the learning rate scheduler<br>if it is of type step <br> `Optional, float in [0, 1]` | 0.5 |
 | step_lr_step_size | Value of step_size <br>for the learning rate scheduler<br>if it is of type step <br> `Optional, Positive Integer` | 5 |
