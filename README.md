@@ -184,7 +184,7 @@ The following tables list out the details of the hyperparameters  and their defa
 | number_of_epochs | Number of training epochs <br> `Optional, Positive Integer` |  all (except yolov5) : 15 <br>yolov5: 30 |
 | training_batch_size | Training batch size <br> `Optional, Positive Integer` | image classification: 78 <br>OD (except yolov5), IS: 2 <br>yolov5: 16 |
 | validation_batch_size | Validation batch size <br> `Optional, Positive Integer` | image classification: 78 <br>OD (except yolov5), IS: 2 <br>yolov5: 16  |
-| early_stopping | Enable early stopping logic during training <br> `Optional, one of {0: False, 1: True}`| 1 |
+| early_stopping | Enable early stopping logic during training <br> `Optional, 0 or 1`| 1 |
 | early_stopping_patience | Min num of epochs/validation evaluations <br>with no primary metric improvement <br>before the run is stopped <br> `Optional, Positive Integer` | 5 |
 | early_stopping_delay | Min num of epochs/validation evaluations <br>to wait before primary metric improvement <br>is tracked for early stopping <br> `Optional, Positive Integer` | 5 |
 | learning_rate | Initial learning rate <br> `Optional, float in [0, 1]` | multi-class: 0.01 <br>multi-label: 0.035 <br>OD (except yolov5), IS: 0.05  <br>yolov5: 0.01  |
@@ -196,10 +196,10 @@ The following tables list out the details of the hyperparameters  and their defa
 | optimizer | Type of optimizer <br> `Optional, one of {sgd, adam, adamw}`  | sgd |
 | momentum | Value of momentum for the optimizer<br>if it is of type sgd <br> `Optional, float in [0, 1]` | 0.9 |
 | weight_decay | Value of weight_decay for the optimizer<br>if it is of type sgd or adam or adamw <br> `Optional, float in [0, 1]` | 1e-4 |
-| nesterov | Enable nesterov for the optimizer<br>if it is of type sgd <br> `Optional, one of {0: False, 1: True}`| 1 |
+| nesterov | Enable nesterov for the optimizer<br>if it is of type sgd <br> `Optional, 0 or 1`| 1 |
 | beta1 | Value of beta1 for the optimizer<br>if it is of type adam or adamw <br> `Optional, float in [0, 1]` | 0.9 |
 | beta2 | Value of beta2 for the optimizer<br>if it is of type adam or adamw <br> `Optional, float in [0, 1]` | 0.999 |
-| amsgrad | Enable amsgrad for the optimizer<br>if it is of type adam or adamw <br> `Optional, one of {0: False, 1: True}` | 0 |
+| amsgrad | Enable amsgrad for the optimizer<br>if it is of type adam or adamw <br> `Optional, 0 or 1` | 0 |
 | evaluation_frequency | Frequency to evaluate validation dataset<br>to get metric scores <br> `Optional, Positive Integer` | 1 |
 | split_ratio | Validation split ratio when splitting train<br>data into random train and validation<br>subsets if validation data is not defined <br> `Optional, float in [0, 1]` | 0.2 |
 | checkpoint_frequency | Frequency to store model checkpoints.<br>By default, we save checkpoint at the<br>epoch which has the best primary metric<br>on validation <br> `Optional, Positive Integer` | no default value <br> (checkpoint at epoch <br>with best primary metric)  |
@@ -212,21 +212,21 @@ The following tables list out the details of the hyperparameters  and their defa
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| weighted_loss | 0 for no weighted loss<br>1 for weighted loss with sqrt(class_weights),<br>and 2 for weighted loss with class_weights | 0 |
-| resize_size | Image size to which to resize before cropping for validation dataset | 256  |
-| crop_size | Image crop size which is input to your neural network | 224 |
+| weighted_loss | 0 for no weighted loss<br>1 for weighted loss with sqrt(class_weights),<br>and 2 for weighted loss with class_weights <br> `Optional, 0 or 1 or 2` | 0 |
+| resize_size | Image size to which to resize before cropping for validation dataset <br> `Optional, Positive Integer` | 256  |
+| crop_size | Image crop size which is input to your neural network <br> `Optional, Positive Integer` | 224 |
 
 <br>
 <b>For Object Detection and Instance Segmentation - </b>  
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| validation_metric_type | metric computation method to use for validation metrics | voc |
-| min_size | Minimum size of the image to be rescaled before feeding it to the backbone | 600 |
-| max_size | Maximum size of the image to be rescaled before feeding it to the backbone | 1333 |
-| box_score_thresh | During inference, only return proposals with a classification score<br> greater than box_score_thresh | 0.3 |
-| box_nms_thresh | NMS threshold for the prediction head. Used during inference | 0.5 |
-| box_detections_per_img | Maximum number of detections per image, for all classes | 100 |
+| validation_metric_type | Metric computation method to use for validation metrics  <br> `Optional, one of {none, coco, voc, coco_voc}` | voc |
+| min_size | Minimum size of the image to be rescaled before feeding it to the backbone <br> `Optional, Positive Integer` | 600 |
+| max_size | Maximum size of the image to be rescaled before feeding it to the backbone <br> `Optional, Positive Integer` | 1333 |
+| box_score_thresh | During inference, only return proposals with a classification score<br> greater than box_score_thresh <br> `Optional, float in [0, 1]` | 0.3 |
+| box_nms_thresh | NMS threshold for the prediction head. Used during inference <br> `Optional, float in [0, 1]` | 0.5 |
+| box_detections_per_img | Maximum number of detections per image, for all classes <br> `Optional, Positive Integer` | 100 |
 
 <br>
 <b>Model-specific hyperparameters</b> 
@@ -235,11 +235,11 @@ The following tables list out the details of the hyperparameters  and their defa
 <b>For yolov5 - </b>
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| img_size | image size for train and val | 640 |
-| model_size | model size (small, medium, large, xlarge) | medium |
-| multi_scale | Enable multi-scale image by varying image size by +/- 50% | 0 |
-| box_score_thresh | During inference, only return proposals with a score<br> greater than box_score_thresh. The score is the multiplication of<br> the objectness score and classification probability | 0.001 |
-| box_iou_thresh | IOU threshold used during inference in nms post processing | 0.5 |
+| img_size | Image size for train and validation <br> `Optional, Positive Integer` | 640 |
+| model_size | Model size <br> `Optional, one of {small, medium, large, xlarge}` | medium |
+| multi_scale | Enable multi-scale image by varying image size by +/- 50% <br> `Optional, 0 or 1` | 0 |
+| box_score_thresh | During inference, only return proposals with a score<br> greater than box_score_thresh. The score is the multiplication of<br> the objectness score and classification probability <br> `Optional, float in [0, 1]` | 0.001 |
+| box_iou_thresh | IoU threshold used during inference in nms post processing <br> `Optional, float in [0, 1]` | 0.5 |
 <br>
 
 ### Sweeping hyperparameters for your model
@@ -281,13 +281,13 @@ You can control the resources spent on your hyperparameter sweep by specifying t
 You can specify the metric to be used for model optimization and hyperparameter tuning using the optional `primary_metric` parameter. Default values depend on the task type -
 <ul>
 <li>'accuracy' for image-classification</li>
-<li>'IOU' for image-classification-multi-label</li>
+<li>'iou' for image-multi-labeling</li>
 <li>'mean_average_precision' for image-object-detection</li>
 <li>'mean_average_precision' for image-instance-segmentation</li>
 </ul>
 
 ### Experiment budget
-You can optionally specify the maximum time budget for your AutoML Viison experiment using `experiment_timeout_hours` - the amount of time in hours before the experiment terminates. If none specified, default experiment timeout is 6 days.
+You can optionally specify the maximum time budget for your AutoML Vison experiment using `experiment_timeout_hours` - the amount of time in hours before the experiment terminates. If none specified, default experiment timeout is 6 days.
 
 <!---
 ### Early stopping
