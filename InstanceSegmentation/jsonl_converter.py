@@ -42,13 +42,13 @@ def parsing_mask(mask_fname):
     return polygons
 
 
-def convert_mask_in_VOC_to_jsonl(base_dir):
+def convert_mask_in_VOC_to_jsonl(base_dir, workspace):
 
-    src = base_dir #"./odFridgeObjectsMask/"
+    src = base_dir
     train_validation_ratio = 5
 
     # Retrieving default datastore that got automatically created when we setup a workspace
-    workspaceblobstore = 'workspaceblobstore' #ws.get_default_datastore().name
+    workspaceblobstore = workspace.get_default_datastore().name
 
     # Path to the annotations
     annotations_folder = os.path.join(src, "annotations")
