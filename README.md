@@ -167,8 +167,8 @@ The model algorithm is required and is passed in via `model_name` parameter. You
 #### Currently supported model algorithms:
 <ul>
 <li><b>Image Classification (multi-class and multi-label):</b> 'resnet18', 'resnet34', 'resnet50', 'mobilenetv2', 'seresnext'</li>
-<li><b>Object Detection: </b>'yolov5', 'fasterrcnn_resnet50_fpn', 'fasterrcnn_resnet34_fpn', 'fasterrcnn_resnet18_fpn', 'retinanet_resnet50_fpn'</li>
-<li><b>Instance segmentation: </b>'maskrcnn_resnet50_fpn'</li>
+<li><b>Object Detection (OD): </b>'yolov5', 'fasterrcnn_resnet50_fpn', 'fasterrcnn_resnet34_fpn', 'fasterrcnn_resnet18_fpn', 'retinanet_resnet50_fpn'</li>
+<li><b>Instance segmentation (IS): </b>'maskrcnn_resnet50_fpn'</li>
 </ul>
 
 #### Hyperparameters for model training
@@ -182,12 +182,12 @@ The following tables list out the details of the hyperparameters  and their defa
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | number_of_epochs | Number of training epochs <br> `Optional, Positive Integer` |  1. all (except yolov5) : 15 <br> 2. yolov5: 30 |
-| training_batch_size | Training batch size <br> `Optional, Positive Integer` | 1. image classification: 78 <br> 2. object detection (except yolov5), instance segmentation: 2 <br> 3. yolov5: 16 |
-| validation_batch_size | Validation batch size <br> `Optional, Positive Integer` | 1. image classification: 78 <br> 2. object detection (except yolov5), instance segmentation: 2 <br> 3. yolov5: 16  |
+| training_batch_size | Training batch size <br> `Optional, Positive Integer` | 1. image classification: 78 <br> 2. OD (except yolov5), IS: 2 <br> 3. yolov5: 16 |
+| validation_batch_size | Validation batch size <br> `Optional, Positive Integer` | 1. image classification: 78 <br> 2. OD (except yolov5), IS: 2 <br> 3. yolov5: 16  |
 | early_stopping | Enable early stopping logic during training <br> `Optional, one of {0: False, 1: True}`| 1 |
 | early_stopping_patience | Min number of epochs/validation evaluations <br>with no primary metric improvement <br>before the run is stopped <br> `Optional, Positive Integer` | 5 |
 | early_stopping_delay | Min number of epochs/validation evaluations <br>to wait before primary metric improvement <br>is tracked for early stopping <br> `Optional, Positive Integer` | 5 |
-| learning_rate | Initial learning rate <br> `Optional, float in [0, 1]` | 1. multi-class classification: 0.01 <br> 2. multi-label classification: 0.035 <br> 3. object detection (except yolov5), instance segmentation: 0.05  <br> 4. yolov5: 0.01  |
+| learning_rate | Initial learning rate <br> `Optional, float in [0, 1]` | 1. multi-class: 0.01 <br> 2. multi-label: 0.035 <br> 3. OD (except yolov5), IS: 0.05  <br> 4. yolov5: 0.01  |
 | lr_scheduler | Type of learning rate scheduler <br> `Optional, one of {warmup_cosine, step}` | warmup_cosine |
 | step_lr_gamma | Value of gamma for the learning rate scheduler<br>if it is of type step <br> `Optional, float in [0, 1]` | 0.5 |
 | step_lr_step_size | Value of step_size for the learning rate scheduler<br>if it is of type step <br> `Optional, Positive Integer` | 5 |
@@ -202,8 +202,8 @@ The following tables list out the details of the hyperparameters  and their defa
 | amsgrad | Enable amsgrad for the optimizer<br>if it is of type adam or adamw <br> `Optional, one of {0: False, 1: True}` | 0 |
 | evaluation_frequency | Frequency to evaluate validation dataset<br>to get metric scores <br> `Optional, Positive Integer` | 1 |
 | split_ratio | Validation split ratio when splitting train data<br>into random train and validation subsets<br>if validation data is not defined <br> `Optional, float in [0, 1]` | 0.2 |
-| checkpoint_frequency | Frequency to store model checkpoints.<br>By default, we save checkpoint at the epoch<br>which has the best primary metric on validation <br> `Optional, Positive Integer no greater than number_of_epochs` | no default value <br> (checkpoint at epoch with best primary metric)  |
-| layers_to_freeze | How many layers to freeze for your model.<br>Available layers for each model is following: <br> {'resnet': [('conv1.', 'bn1.'), 'layer1.', 'layer2.', 'layer3.', 'layer4.'], <br>'mobilenetv2': ['features.0.', 'features.1.', 'features.2.', 'features.3.', 'features.4.', 'features.5.', 'features.6.', 'features.7.', 'features.8.', 'features.9.', 'features.10.', 'features.11.', 'features.12.', 'features.13.', 'features.14.', 'features.15.', 'features.16.', 'features.17.', 'features.18.'], <br> 'seresnext': ['layer0.', 'layer1.', 'layer2.', 'layer3.', 'layer4.'], <br> 'yolov5_backbone': ['model.0.', 'model.1.', 'model.2.', 'model.3.', 'model.4.', 'model.5.', 'model.6.', 'model.7.', 'model.8.', 'model.9.'], <br> 'resnet_backbone': ['backbone.body.conv1.', 'backbone.body.layer1.', 'backbone.body.layer2.', 'backbone.body.layer3.', 'backbone.body.layer4.']}. <br>For instance, passing 2 as value for seresnext means<br>you want to freeze layer0 and layer1.<br>If this is not specified, we default to:<br>no frozen layer for resnet18/34/50,<br>mobilenetv2, seresnext and yolov5,<br>while the first two layers are frozen in resnet backbone<br>for fasterrcnn, maskrcnn and retinanet. <br> `Optional, Positive Integer no greater than number of available layers for each model` | no default value |
+| checkpoint_frequency | Frequency to store model checkpoints.<br>By default, we save checkpoint at the epoch<br>which has the best primary metric on validation <br> `Optional, Positive Integer` | no default value <br> (checkpoint at epoch <br>with best primary metric)  |
+| layers_to_freeze | How many layers to freeze for your model.<br>Available layers for each model is following: <br> {**'resnet'**: [('conv1.', 'bn1.'), 'layer1.', 'layer2.', <br>'layer3.', 'layer4.'], <br>**'mobilenetv2'**: ['features.0.', 'features.1.',<br>'features.2.', 'features.3.','features.4.',<br>'features.5.', 'features.6.', 'features.7.',<br>'features.8.', 'features.9.', 'features.10.',<br>'features.11.', 'features.12.', 'features.13.',<br>'features.14.', 'features.15.', 'features.16.',<br>'features.17.', 'features.18.'], <br> **'seresnext'**: ['layer0.', 'layer1.', 'layer2.',<br>'layer3.', 'layer4.'], <br> **'yolov5_backbone'**: ['model.0.', 'model.1.', 'model.2.',<br>'model.3.', 'model.4.', 'model.5.', 'model.6.',<br>'model.7.', 'model.8.', 'model.9.'], <br> **'resnet_backbone'**: ['backbone.body.conv1.',<br>'backbone.body.layer1.', 'backbone.body.layer2.',<br>'backbone.body.layer3.', 'backbone.body.layer4.']}. <br>*For instance, passing 2 as value for seresnext means<br>you want to freeze layer0 and layer1. If this is not specified,<br>we default to: no frozen layer for resnet18/34/50,<br>mobilenetv2, seresnext and yolov5,<br>while the first two layers are frozen in resnet backbone<br>for fasterrcnn, maskrcnn and retinanet.* <br> `Optional, Positive Integer` | no default value |
 
 <br>
 <b>Task-specific hyperparameters</b> 
