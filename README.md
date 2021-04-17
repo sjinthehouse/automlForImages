@@ -189,7 +189,7 @@ The following tables list out the details of the hyperparameters  and their defa
 | early_stopping_delay | Min number of epochs/validation evaluations <br>to wait before primary metric improvement <br>is tracked for early stopping <br> `Optional, Positive Integer` | 5 |
 | learning_rate | Initial learning rate <br> `Optional, float in [0, 1]` | 1. multi-class: 0.01 <br> 2. multi-label: 0.035 <br> 3. OD (except yolov5), IS: 0.05  <br> 4. yolov5: 0.01  |
 | lr_scheduler | Type of learning rate scheduler <br> `Optional, one of {warmup_cosine, step}` | warmup_cosine |
-| step_lr_gamma | Value of gamma for the learning rate scheduler<br>if it is of type step <br> `Optional, float in [0, 1]` | 0.5 |
+| step_lr_gamma | Value of gamma <br>for the learning rate scheduler<br>if it is of type step <br> `Optional, float in [0, 1]` | 0.5 |
 | step_lr_step_size | Value of step_size <br>for the learning rate scheduler<br>if it is of type step <br> `Optional, Positive Integer` | 5 |
 | warmup_cosine_lr_cycles | Value of cosine cycle <br>for the learning rate scheduler<br>if it is of type warmup_cosine <br> `Optional, float in [0, 1]` | 0.45 |
 | warmup_cosine_lr_warmup_epochs | Value of warmup epochs <br>for the learning rate scheduler<br>if it is of type warmup_cosine <br> `Optional, Positive Integer` | 2 |
