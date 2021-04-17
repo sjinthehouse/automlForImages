@@ -181,26 +181,29 @@ The following tables list out the details of the hyperparameters  and their defa
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| number_of_epochs | Number of training epochs, <br> `Optional, Positive Integer` |  1. All (except yolov5) : 15 <br> 2. yolov5: 30 |
-| training_batch_size | Training batch size, <br> `Optional, Positive Integer` | 1. Image classification: 78 <br> 2. Object detection (except yolov5), instance segmentation: 2 <br> 3. yolov5: 16 |
-| validation_batch_size | Validation batch size, <br> `Optional, Positive Integer` | 1. Image classification: 78 <br> 2. Object detection (except yolov5), instance segmentation: 2 <br> 3. yolov5: 16  |
-| learning_rate | Initial learning rate, <br> `Optional, float in [0, 1]` | 1. Multi-class classification: 0.01 <br> 2. Multi-label classification: 0.035 <br> 3. Object detection (except yolov5), instance segmentation: 0.05  <br> 4. yolov5: 0.01  |
-| lr_scheduler | Type of learning rate scheduler, <br> `Optional, one of {warmup_cosine, step}` | warmup_cosine |
-| step_lr_gamma | Value of gamma for the learning rate scheduler<br>if it is of type step | 0.5 |
-| step_lr_step_size | Value of step_size for the learning rate scheduler<br>if it is of type step | 5 |
-| warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler<br>if it is of type warmup_cosine | 0.45 |
-| warmup_cosine_lr_warmup_epochs | Value of warmup epochs for the learning rate scheduler<br>if it is of type warmup_cosine | 2 |
-| optimizer | Type of optimizer in {sgd, adam, adamw} | sgd |
-| momentum | Value of momentum for the optimizer if it is of type sgd | 0.9 |
-| weight_decay | Value of weight_decay for the optimizer if it is of type sgd<br>or adam or adamw | 1e-4 |
-| nesterov | Enable nesterov for the optimizer if it is of type sgd | 1 |
-| beta1 | Value of beta1 for the optimizer if it is of type adam<br>or adamw | 0.9 |
-| beta2 | Value of beta2 for the optimizer if it is of type adam<br>or adamw | 0.999 |
-| amsgrad | Enable amsgrad for the optimizer if it is of type adam<br>or adamw | 0 |
-| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores | 1 |
-| split_ratio | Validation split ratio when splitting train data into random train<br>and validation subsets if validation data is not defined | 0.2 |
-| checkpoint_frequency | Frequency to store model checkpoints. By default, we save checkpoint<br>at the epoch which has the best primary metric score on validation  | checkpoint at epoch<br> with best primary metric  |
-| layers_to_freeze | How many layers to freeze for your model. Available layers for each model is<br>following: {}. For instance, passing 2 as value for seresnext means you want to<br>freeze layer0 and layer1. If this is not specified, we default to:<br>no frozen layer for resnet18/34/50, mobilenetv2, seresnext and yolov5,<br>while the first two layers are frozen in resnet backbone for fasterrcnn, maskrcnn<br>and retinanet.| No default for this argument |
+| number_of_epochs | Number of training epochs <br> `Optional, Positive Integer` |  1. all (except yolov5) : 15 <br> 2. yolov5: 30 |
+| training_batch_size | Training batch size <br> `Optional, Positive Integer` | 1. image classification: 78 <br> 2. object detection (except yolov5), instance segmentation: 2 <br> 3. yolov5: 16 |
+| validation_batch_size | Validation batch size <br> `Optional, Positive Integer` | 1. image classification: 78 <br> 2. object detection (except yolov5), instance segmentation: 2 <br> 3. yolov5: 16  |
+| early_stopping | Enable early stopping logic during training <br> `Optional, one of {0: False, 1: True}`| 1 |
+| early_stopping_patience | Minimum number of epochs/validation evaluations with <br>no primary metric score improvement before the run is stopped <br> `Optional, Positive Integer` | 5 |
+| early_stopping_delay | Minimum number of epochs/validation evaluations to wait <br>before primary metric score improvement is tracked for early stopping <br> `Optional, Positive Integer` | 5 |
+| learning_rate | Initial learning rate <br> `Optional, float in [0, 1]` | 1. multi-class classification: 0.01 <br> 2. multi-label classification: 0.035 <br> 3. object detection (except yolov5), instance segmentation: 0.05  <br> 4. yolov5: 0.01  |
+| lr_scheduler | Type of learning rate scheduler <br> `Optional, one of {warmup_cosine, step}` | warmup_cosine |
+| step_lr_gamma | Value of gamma for the learning rate scheduler<br>if it is of type step <br> `Optional, float in [0, 1]` | 0.5 |
+| step_lr_step_size | Value of step_size for the learning rate scheduler<br>if it is of type step <br> `Optional, Positive Integer` | 5 |
+| warmup_cosine_lr_cycles | Value of cosine cycle for the learning rate scheduler<br>if it is of type warmup_cosine <br> `Optional, float in [0, 1]` | 0.45 |
+| warmup_cosine_lr_warmup_epochs | Value of warmup epochs for the learning rate scheduler<br>if it is of type warmup_cosine <br> `Optional, Positive Integer` | 2 |
+| optimizer | Type of optimizer <br> `Optional, one of {sgd, adam, adamw}`  | sgd |
+| momentum | Value of momentum for the optimizer if it is of type sgd <br> `Optional, float in [0, 1]` | 0.9 |
+| weight_decay | Value of weight_decay for the optimizer if it is of type sgd<br>or adam or adamw <br> `Optional, float in [0, 1]` | 1e-4 |
+| nesterov | Enable nesterov for the optimizer if it is of type sgd <br> `Optional, one of {0: False, 1: True}`| 1 |
+| beta1 | Value of beta1 for the optimizer if it is of type adam<br>or adamw <br> `Optional, float in [0, 1]` | 0.9 |
+| beta2 | Value of beta2 for the optimizer if it is of type adam<br>or adamw <br> `Optional, float in [0, 1]` | 0.999 |
+| amsgrad | Enable amsgrad for the optimizer if it is of type adam<br>or adamw <br> `Optional, one of {0: False, 1: True}` | 0 |
+| evaluation_frequency | Frequency to evaluate validation dataset to get metric scores <br> `Optional, Positive Integer` | 1 |
+| split_ratio | Validation split ratio when splitting train data into random train and validation subsets if validation data is not defined <br> `Optional, float in [0, 1]` | 0.2 |
+| checkpoint_frequency | Frequency to store model checkpoints. By default, we save checkpoint at the epoch which has the best primary metric score on validation <br> `Optional, Positive Integer no greater than number_of_epochs` | no default value <br> (checkpoint at epoch with best primary metric)  |
+| layers_to_freeze | How many layers to freeze for your model. Available layers for each model is following: <br> {'resnet': [('conv1.', 'bn1.'), 'layer1.', 'layer2.', 'layer3.', 'layer4.'], <br> 'mobilenetv2': ['features.0.', 'features.1.', 'features.2.', 'features.3.', 'features.4.', 'features.5.', 'features.6.', 'features.7.', 'features.8.', 'features.9.', 'features.10.', 'features.11.', 'features.12.', 'features.13.', 'features.14.', 'features.15.', 'features.16.', 'features.17.', 'features.18.'], <br> 'seresnext': ['layer0.', 'layer1.', 'layer2.', 'layer3.', 'layer4.'], <br> 'yolov5_backbone': ['model.0.', 'model.1.', 'model.2.', 'model.3.', 'model.4.', 'model.5.', 'model.6.', 'model.7.', 'model.8.', 'model.9.'], <br> 'resnet_backbone': ['backbone.body.conv1.', 'backbone.body.layer1.', 'backbone.body.layer2.', 'backbone.body.layer3.', 'backbone.body.layer4.']}. <br> For instance, passing 2 as value for seresnext means you want to freeze layer0 and layer1. If this is not specified, we default to: no frozen layer for resnet18/34/50, mobilenetv2, seresnext and yolov5, while the first two layers are frozen in resnet backbone for fasterrcnn, maskrcnn and retinanet. <br> `Optional, Positive Integer no greater than number of available layers for each model` | no default value |
 
 <br>
 <b>Task-specific hyperparameters</b> 
@@ -286,6 +289,7 @@ You can specify the metric to be used for model optimization and hyperparameter 
 ### Experiment budget
 You can optionally specify the maximum time budget for your AutoML Viison experiment using `experiment_timeout_hours` - the amount of time in hours before the experiment terminates. If none specified, default experiment timeout is 6 days.
 
+<!---
 ### Early stopping
 You can optionally enable early stopping for your AutoML Vision experiment using `enable_early_stopping` parameter. 
 | Parameter Name       | Description           | Default  |
@@ -294,7 +298,7 @@ You can optionally enable early stopping for your AutoML Vision experiment using
 | early_stopping_patience | Minimum number of epochs/validation evaluations<br> with no primary metric score improvement before the run is stopped | 5 |
 | early_stopping_delay | Minimum number of epochs/validation evaluations<br> to wait before primary metric score improvement is tracked for early stopping | 5 |
 <br>
-
+-->
 ### Arguments
 You can pass fixed settings or parameters that don't change during the parameter space sweep as arguments. Arguments are passed in name-value pairs and the name must be prefixed by a double dash. For example:
 
