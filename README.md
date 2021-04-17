@@ -182,8 +182,8 @@ The following tables list out the details of the hyperparameters  and their defa
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | number_of_epochs | Number of training epochs <br> `Optional, Positive Integer` |  all (except yolov5) : 15 <br>yolov5: 30 |
-| training_batch_size | Training batch size <br> `Optional, Positive Integer` | multi-class / multi-label: 78 <br>OD (except yolov5) / IS: 2 <br>yolov5: 16 |
-| validation_batch_size | Validation batch size <br> `Optional, Positive Integer` | multi-class / multi-label: 78 <br>OD (except yolov5) / IS: 2 <br>yolov5: 16  |
+| training_batch_size | Training batch size <br> *Note: the defaults are largest batch size which can be used on 12GiB GPU memory* <br> `Optional, Positive Integer` | multi-class / multi-label: 78 <br>OD (except yolov5) / IS: 2 <br>yolov5: 16 |
+| validation_batch_size | Validation batch size <br> *Note: the defaults are largest batch size which can be used on 12GiB GPU memory*  <br> `Optional, Positive Integer` | multi-class / multi-label: 78 <br>OD (except yolov5) / IS: 2 <br>yolov5: 16  |
 | early_stopping | Enable early stopping logic during training <br> `Optional, 0 or 1`| 1 |
 | early_stopping_patience | Min num of epochs/validation evaluations <br>with no primary metric improvement <br>before the run is stopped <br> `Optional, Positive Integer` | 5 |
 | early_stopping_delay | Min num of epochs/validation evaluations <br>to wait before primary metric improvement <br>is tracked for early stopping <br> `Optional, Positive Integer` | 5 |
@@ -213,8 +213,8 @@ The following tables list out the details of the hyperparameters  and their defa
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | weighted_loss | 0 for no weighted loss<br>1 for weighted loss with sqrt(class_weights),<br>and 2 for weighted loss with class_weights <br> `Optional, 0 or 1 or 2` | 0 |
-| resize_size | Image size to which to resize before cropping for validation dataset <br> `Optional, Positive Integer` | 256  |
-| crop_size | Image crop size which is input to your neural network <br> `Optional, Positive Integer` | 224 |
+| resize_size | Image size to which to resize before cropping for validation dataset <br> *Note: unlike others, seresnext doesn't take an arbitary size <br> Note: training run may get into CUDA OOM if the size is too big* <br> `Optional, Positive Integer` | 256  |
+| crop_size | Image crop size which is input to your neural network <br> *Note: unlike others, seresnext doesn't take an arbitary size <br> Note: training run may get into CUDA OOM if the size is too big* <br> `Optional, Positive Integer` | 224 |
 
 <br>
 <b>For Object Detection and Instance Segmentation - </b>  
@@ -222,8 +222,8 @@ The following tables list out the details of the hyperparameters  and their defa
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | validation_metric_type | Metric computation method to use for validation metrics  <br> `Optional, one of {none, coco, voc, coco_voc}` | voc |
-| min_size | Minimum size of the image to be rescaled before feeding it to the backbone <br> `Optional, Positive Integer` | 600 |
-| max_size | Maximum size of the image to be rescaled before feeding it to the backbone <br> `Optional, Positive Integer` | 1333 |
+| min_size | Minimum size of the image to be rescaled before feeding it to the backbone <br> *Note: training run may get into CUDA OOM if the size is too big* <br> `Optional, Positive Integer` | 600 |
+| max_size | Maximum size of the image to be rescaled before feeding it to the backbone <br> *Note: training run may get into CUDA OOM if the size is too big* <br> `Optional, Positive Integer` | 1333 |
 | box_score_thresh | During inference, only return proposals with a classification score<br> greater than box_score_thresh <br> `Optional, float in [0, 1]` | 0.3 |
 | box_nms_thresh | NMS threshold for the prediction head. Used during inference <br> `Optional, float in [0, 1]` | 0.5 |
 | box_detections_per_img | Maximum number of detections per image, for all classes <br> `Optional, Positive Integer` | 100 |
@@ -235,9 +235,9 @@ The following tables list out the details of the hyperparameters  and their defa
 <b>For yolov5 - </b>
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
-| img_size | Image size for train and validation <br> `Optional, Positive Integer` | 640 |
-| model_size | Model size <br> `Optional, one of {small, medium, large, xlarge}` | medium |
-| multi_scale | Enable multi-scale image by varying image size by +/- 50% <br> `Optional, 0 or 1` | 0 |
+| img_size | Image size for train and validation <br> *Note: training run may get into CUDA OOM if the size is too big* <br> `Optional, Positive Integer` | 640 |
+| model_size | Model size <br> *Note: training run may get into CUDA OOM if the model size is too big* <br> `Optional, one of {small, medium, large, xlarge}` | medium |
+| multi_scale | Enable multi-scale image by varying image size by +/- 50% <br> *Note: training run may get into CUDA OOM if no sufficient GPU memory* <br> `Optional, 0 or 1` | 0 |
 | box_score_thresh | During inference, only return proposals with a score<br> greater than box_score_thresh. The score is the multiplication of<br> the objectness score and classification probability <br> `Optional, float in [0, 1]` | 0.001 |
 | box_iou_thresh | IoU threshold used during inference in nms post processing <br> `Optional, float in [0, 1]` | 0.5 |
 <br>
