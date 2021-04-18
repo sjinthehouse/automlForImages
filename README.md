@@ -218,7 +218,7 @@ The following tables list out the details of the hyperparameters  and their defa
 | crop_size | Image crop size which is input to your neural network <br> *Note: unlike others, seresnext doesn't take an arbitary size <br> Note: training run may get into CUDA OOM if the size is too big* <br> `Optional, Positive Integer` | 224 |
 
 <br>
-<b>For Object Detection and Instance Segmentation - </b>  
+<b>For Object Detection (except yolov5) and Instance Segmentation - </b>  
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
@@ -236,6 +236,7 @@ The following tables list out the details of the hyperparameters  and their defa
 <b>For yolov5 - </b>
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
+| validation_metric_type | Metric computation method to use for validation metrics  <br> `Optional, one of {none, coco, voc, coco_voc}` | voc |
 | img_size | Image size for train and validation <br> *Note: training run may get into CUDA OOM if the size is too big* <br> `Optional, Positive Integer` | 640 |
 | model_size | Model size <br> *Note: training run may get into CUDA OOM if the model size is too big* <br> `Optional, one of {small, medium, large, xlarge}` | medium |
 | multi_scale | Enable multi-scale image by varying image size by +/- 50% <br> *Note: training run may get into CUDA OOM if no sufficient GPU memory* <br> `Optional, 0 or 1` | 0 |
