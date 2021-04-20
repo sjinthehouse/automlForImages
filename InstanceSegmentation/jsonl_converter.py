@@ -1,12 +1,76 @@
 import argparse
 import os
 import json
-import torch
 import numpy as np
 import PIL.Image as Image
 import xml.etree.ElementTree as ET
 
-from azureml.contrib.automl.dnn.vision.object_detection.common.masktools import convert_mask_to_polygon
+from simplification.cutil import simplify_coords
+from skimage import measure
+
+
+def convert_mask_to_polygon(mask, max_polygon_points=100, score_threshold=0.5, max_refinement_iterations=25,
+                            edge_safety_padding=1):
+    """Convert a numpy mask to a polygon outline in normalized coordinates.
+
+    :param mask: Pixel mask, where each pixel has an object (float) score in [0, 1], in size ([1, height, width])
+    :type: mask: <class 'numpy.array'>
+    :param max_polygon_points: Maximum number of (x, y) coordinate pairs in polygon
+    :type: max_polygon_points: Int
+    :param score_threshold: Score cutoff for considering a pixel as in object.
+    :type: score_threshold: Float
+    :param max_refinement_iterations: Maximum number of times to refine the polygon
+    trying to reduce the number of pixels to meet max polygon points.
+    :type: max_refinement_iterations: Int
+    :param edge_safety_padding: Number of pixels to pad the mask with
+    :type edge_safety_padding: Int
+    :return: normalized polygon coordinates
+    :rtype: list of list
+    """
+    # Convert to numpy bitmask
+    mask = mask[0]
+    mask_array = np.array((mask > score_threshold), dtype=np.uint8)
+    image_shape = mask_array.shape
+
+    # Pad the mask to avoid errors at the edge of the mask
+    embedded_mask = np.zeros((image_shape[0] + 2 * edge_safety_padding,
+                              image_shape[1] + 2 * edge_safety_padding),
+                             dtype=np.uint8)
+    embedded_mask[edge_safety_padding:image_shape[0] + edge_safety_padding,
+                  edge_safety_padding:image_shape[1] + edge_safety_padding] = mask_array
+
+    # Find Image Contours
+    contours = measure.find_contours(embedded_mask, 0.5)
+    simplified_contours = []
+
+    for contour in contours:
+
+        # Iteratively reduce polygon points, if necessary
+        if max_polygon_points is not None:
+            simplify_factor = 0
+            while len(contour) > max_polygon_points and simplify_factor < max_refinement_iterations:
+                contour = simplify_coords(contour, simplify_factor)
+                simplify_factor += 1
+
+        # Convert to [x, y, x, y, ....] coordinates and correct for padding
+        unwrapped_contour = [0] * (2 * len(contour))
+        unwrapped_contour[::2] = np.ceil(contour[:, 1]) - edge_safety_padding
+        unwrapped_contour[1::2] = np.ceil(contour[:, 0]) - edge_safety_padding
+
+        simplified_contours.append(unwrapped_contour)
+
+    return _normalize_contour(simplified_contours, image_shape)
+
+
+def _normalize_contour(contours, image_shape):
+
+    height, width = image_shape[0], image_shape[1]
+
+    for contour in contours:
+        contour[::2] = [x * 1. / width for x in contour[::2]]
+        contour[1::2] = [y * 1. / height for y in contour[1::2]]
+
+    return contours
 
 
 def binarise_mask(mask_fname):
@@ -33,10 +97,9 @@ def parsing_mask(mask_fname):
     polygons = []
     for bi_mask in binary_masks:
 
-        mask_tensor = torch.from_numpy(bi_mask)
-        if len(mask_tensor.shape) == 2:
-            mask_tensor = mask_tensor.unsqueeze(0)
-        polygon = convert_mask_to_polygon(mask_tensor)
+        if len(bi_mask.shape) == 2:
+            bi_mask = bi_mask[np.newaxis, :]
+        polygon = convert_mask_to_polygon(bi_mask)
         polygons.append(polygon)
 
     return polygons
@@ -117,6 +180,7 @@ if __name__ == "__main__":
 
     args, remaining_args = parser.parse_known_args()
     data_path = args.data_path
-    odFridgeObjectsMask(data_path)
+
+    convert_mask_in_VOC_to_jsonl(data_path)
 
 
