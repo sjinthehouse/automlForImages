@@ -37,7 +37,7 @@ Like all Azure ML features, customers incur the costs associated with the Azure 
 AutoML allows you to easily train models for Image Classification, Object Detection & Instance Segmentation on your image data. You can control the model algorithm to be used, specify hyperparameter values for your model as well as perform a sweep across the hyperparameter space to generate an optimal model. Parameters for configuring your AutoML Vision run are specified using the 'AutoMLVisionConfig' in the Python SDK.
 
 ### Select your task type
-AutoML Vision supports the following task types -
+AutoML Vision supports the following task types:
 <ul>
 <li>image-classification</li>
 <li>image-multi-labeling</li>
@@ -130,7 +130,7 @@ Here is a sample JSONL file for Image classfication:
   ```
   
 
-If your training data is in a different format (e.g. pascal VOC), you can leverage the helper scripts included with the sample notebooks in this repo to convert the data to JSONL. Once your data is in JSONL format, you can create a labeled dataset using this snippet -
+If your training data is in a different format (e.g. pascal VOC), you can leverage the helper scripts included with the sample notebooks in this repo to convert the data to JSONL. Once your data is in JSONL format, you can create a labeled dataset using this snippet:
 
 ```python
 from azureml.contrib.dataset.labeled_dataset import _LabeledDatasetFactory, LabeledDatasetTask
@@ -176,7 +176,7 @@ The model algorithm is required and is passed in via `model_name` parameter. You
 
 In addition to controlling the model algorthm used, you can also tune hyperparameters used for model training. While many of the hyperparameters exposed are model-agnostic, some are task-specific and a few are model-specific.
 
-The following tables list out the details of the hyperparameters  and their default values for each -
+The following tables list out the details of the hyperparameters  and their default values for each:
 
 <b>Model-agnostic hyperparameters</b> 
 
@@ -209,7 +209,8 @@ The following tables list out the details of the hyperparameters  and their defa
 <br>
 <b>Task-specific hyperparameters</b> 
 <br>
-<b> For Image Classifcation (Multi-class and Multi-label)  - </b>
+<br>
+<b> For Image Classifcation (Multi-class and Multi-label):</b>
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
@@ -218,7 +219,7 @@ The following tables list out the details of the hyperparameters  and their defa
 | crop_size | Image crop size which is input to your neural network <br> *Note: unlike others, seresnext doesn't take an arbitary size <br> Note: training run may get into CUDA OOM if the size is too big* <br> `Optional, Positive Integer` | 224 |
 
 <br>
-<b>For Object Detection (except yolov5) and Instance Segmentation - </b>  
+<b>For Object Detection (except yolov5) and Instance Segmentation: </b>  
 
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
@@ -233,7 +234,7 @@ The following tables list out the details of the hyperparameters  and their defa
 <b>Model-specific hyperparameters</b> 
 <br>
 
-<b>For yolov5 - </b>
+<b>For yolov5: </b>
 | Parameter Name       | Description           | Default  |
 | ------------- |-------------| -----|
 | validation_metric_type | Metric computation method to use for validation metrics  <br> `Optional, one of {none, coco, voc, coco_voc}` | voc |
