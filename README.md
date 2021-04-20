@@ -314,7 +314,7 @@ automl_vision_config = AutoMLVisionConfig(arguments=arguments)
 ## Sample notebooks
 Please refer to the following sample notebooks to see how you can use AutoML for Images with sample data in your scenario -
 
-Object Detection - [AutoML for Images Object Detection Sample Notebook](./ObjectDetection/AutoMLVision_ObjectDetection_SampleNotebook.ipynb)</br>
-Multi-Class Image Classification - [AutoML for Images Multi-Class Classification Sample Notebook](./MultiClass/AutoMLVision_MultiClass_SampleNotebook.ipynb)</br>
-Multi-Label Image Classification - [AutoML for Images Multi-Label Classification Sample Notebook](./MultiLabel/AutoMLVision_MultiLabel_SampleNotebook.ipynb)</br>
-Instance Segmentation - [AutoML for Images Instance Segmentation Sample Notebook](./InstanceSegmentation/AutoMLVision_InstanceSegmentation_SampleNotebook.ipynb)</br>
+Object Detection - [AutoML for Images Object Detection Sample Notebook](./ObjectDetection/AutoMLImage_ObjectDetection_SampleNotebook.ipynb)</br>
+Multi-Class Image Classification - [AutoML for Images Multi-Class Classification Sample Notebook](./MultiClass/AutoMLImage_MultiClass_SampleNotebook.ipynb)</br>
+Multi-Label Image Classification - [AutoML for Images Multi-Label Classification Sample Notebook](./MultiLabel/AutoMLImage_MultiLabel_SampleNotebook.ipynb)</br>
+Instance Segmentation - [AutoML for Images Instance Segmentation Sample Notebook](./InstanceSegmentation/AutoMLImage_InstanceSegmentation_SampleNotebook.ipynb)</br>
