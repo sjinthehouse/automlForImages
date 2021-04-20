@@ -253,11 +253,11 @@ AutoML Vision allows you to sweep hyperparameters to find the optimal settings f
 You can define the model algorithms and hyperparameters to sweep in the parameter space. See [Configure model algorithms and hyperparameters](#Configure-model-algorithms-and-hyperparameters) for the list of supported model algorithms and hyperparameters for each task type. Details on supported distributions for discrete and continuous hyperparameters can be found [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters#define-the-search-space).
 
 #### Sampling methods for the sweep
-When sweeping hyperparameters, you need to specify the sampling method to use for sweeping over the defined parameter space. AutoML Vision supports the following sampling methods using the `hyperparameter_sampling` parameter -
+When sweeping hyperparameters, you need to specify the sampling method to use for sweeping over the defined parameter space. AutoML Vision supports the following sampling methods using the `hyperparameter_sampling` parameter:
 <ul>
 <li>Random Sampling</li>
-<li>Grid Sampling</li>
-<li>Bayesian Sampling</li>
+<li>Grid Sampling (not supported yet for conditional spaces)</li>
+<li>Bayesian Sampling (not supported yet for conditional spaces)</li>
 </ul>
 
 You can learn more about each of these sampling methods [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters#sampling-the-hyperparameter-space).
