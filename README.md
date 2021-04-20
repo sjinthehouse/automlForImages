@@ -141,7 +141,7 @@ training_dataset = _LabeledDatasetFactory.from_json_lines(
 training_dataset = training_dataset.register(workspace=ws, name=training_dataset_name)
 ```
 
-You can optionally specify another labeled dataset as a validation dataset to be used for your model. If no validation dataset is specified, 20% of your training data will be used for validation by default, unless you pass split_ratio argument with a different value.
+You can optionally specify another labeled dataset as a validation dataset to be used for your model. If no validation dataset is specified, 20% of your training data will be used for validation by default, unless you pass `split_ratio` argument with a different value.
 
 Training data is a required parameter and is passed in using the `training_data` parameter. Validation data is optional and is passed in using the `validation_data` parameter of the AutoMLVisionConfig. For example: 
 
