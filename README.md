@@ -31,13 +31,13 @@ AutoML for Images includes the following feature capabilities -
 This feature is targeted to data scientists with ML knowledge in the Computer Vision space, looking to build ML models using image data in Azure Machine Learning. It targets to boost data scientist productivity, while allowing full control of the model algorithm, hyperparameters and training and deployment environments.
 
 ### Pricing
-Like all Azure ML features, customers incur the costs associated with the Azure resources consumed (for example, compute and storage costs). There are no additional fees associated with Azure Machine Learning or AutoML Vision. See [Azure Machine Learning pricing](https://azure.microsoft.com/en-us/pricing/details/machine-learning/) for details.
+Like all Azure ML features, customers incur the costs associated with the Azure resources consumed (for example, compute and storage costs). There are no additional fees associated with Azure Machine Learning or AutoML for Images. See [Azure Machine Learning pricing](https://azure.microsoft.com/en-us/pricing/details/machine-learning/) for details.
 
-## How to use AutoML Vision to build models for Vision tasks?
-AutoML allows you to easily train models for Image Classification, Object Detection & Instance Segmentation on your image data. You can control the model algorithm to be used, specify hyperparameter values for your model as well as perform a sweep across the hyperparameter space to generate an optimal model. Parameters for configuring your AutoML Vision run are specified using the 'AutoMLVisionConfig' in the Python SDK.
+## How to use AutoML to build models for computer vision tasks?
+AutoML allows you to easily train models for Image Classification, Object Detection & Instance Segmentation on your image data. You can control the model algorithm to be used, specify hyperparameter values for your model as well as perform a sweep across the hyperparameter space to generate an optimal model. Parameters for configuring your AutoML run for image related tasks are specified using the 'AutoMLVisionConfig' in the Python SDK.
 
 ### Select your task type
-AutoML Vision supports the following task types:
+AutoML for Images supports the following task types:
 <ul>
 <li>image-classification</li>
 <li>image-multi-labeling</li>
@@ -151,7 +151,7 @@ automl_vision_config = AutoMLVisionConfig(training_data=training_dataset)
 ```
 
 ### Compute to run experiment
-You will need to provide a [Compute Target](https://docs.microsoft.com/azure/machine-learning/service/concept-azure-machine-learning-architecture#compute-target) that will be used for your AutoML model training. AutoML Vision models require GPU SKUs and support NC and ND families. Using a compute target with a multi-GPU VM SKU will leverage the multiple GPUs to speed up training. Additionally, setting up a compute target with multiple nodes will allow for faster model training by leveraging parallelism, when tuning hyperparameters for your model.
+You will need to provide a [Compute Target](https://docs.microsoft.com/azure/machine-learning/service/concept-azure-machine-learning-architecture#compute-target) that will be used for your AutoML model training. AutoML models for computer vision tasks require GPU SKUs and support NC and ND families. Using a compute target with a multi-GPU VM SKU will leverage the multiple GPUs to speed up training. Additionally, setting up a compute target with multiple nodes will allow for faster model training by leveraging parallelism, when tuning hyperparameters for your model.
 
 The compute target is a required parameter and is passed in using the `compute_target` parameter of the AutoMLVisionConfig. For example: 
 
@@ -161,7 +161,7 @@ automl_vision_config = AutoMLVisionConfig(compute_target=compute_target)
 ```
 
 ### Configure model algorithms and hyperparameters
-When using AutoML Vision to build vision models, users can control the model algorithm and sweep hyperparameters. These model algorithms and hyperparameters are passed in as the parameter space for the sweep. 
+When using AutoML to build computer vision models, users can control the model algorithm and sweep hyperparameters. These model algorithms and hyperparameters are passed in as the parameter space for the sweep. 
 
 The model algorithm is required and is passed in via `model_name` parameter. You can either specify a single model_name or choose between multiple.
 
@@ -247,13 +247,13 @@ The following tables list out the details of the hyperparameters  and their defa
 
 ### Sweeping hyperparameters for your model
 When training vision models, model performance depends heavily on the hyperparameter values selected. Often times, you might want to tune the hyperparameters to get optimal performance.  
-AutoML Vision allows you to sweep hyperparameters to find the optimal settings for your model. It leverages the hyperparameter tuning capabilities in Azure Machine Learning - you can learn more [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters).
+AutoML for Images allows you to sweep hyperparameters to find the optimal settings for your model. It leverages the hyperparameter tuning capabilities in Azure Machine Learning - you can learn more [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters).
 
 #### Define the parameter search space
 You can define the model algorithms and hyperparameters to sweep in the parameter space. See [Configure model algorithms and hyperparameters](#Configure-model-algorithms-and-hyperparameters) for the list of supported model algorithms and hyperparameters for each task type. Details on supported distributions for discrete and continuous hyperparameters can be found [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters#define-the-search-space).
 
 #### Sampling methods for the sweep
-When sweeping hyperparameters, you need to specify the sampling method to use for sweeping over the defined parameter space. AutoML Vision supports the following sampling methods using the `hyperparameter_sampling` parameter:
+When sweeping hyperparameters, you need to specify the sampling method to use for sweeping over the defined parameter space. AutoML for Images supports the following sampling methods using the `hyperparameter_sampling` parameter:
 <ul>
 <li>Random Sampling</li>
 <li>Grid Sampling (not supported yet for conditional spaces)</li>
@@ -263,7 +263,7 @@ When sweeping hyperparameters, you need to specify the sampling method to use fo
 You can learn more about each of these sampling methods [here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters#sampling-the-hyperparameter-space).
 
 #### Early termination policies
-When using AutoML Vision to sweep hyperparameters for your vision models, you can automatically end poorly performing runs with an early termination policy. Early termination improves computational efficiency, saving compute resources that would have been otherwise spent on less promising configurations. AutoML Vision supports the following early termination policies using the `policy` parameter -
+When using AutoML to sweep hyperparameters for your vision models, you can automatically end poorly performing runs with an early termination policy. Early termination improves computational efficiency, saving compute resources that would have been otherwise spent on less promising configurations. AutoML for Images supports the following early termination policies using the `policy` parameter -
 <ul>
 <li>Bandit Policy</li>
 <li>Median Stopping Policy</li>
@@ -312,9 +312,9 @@ automl_vision_config = AutoMLVisionConfig(arguments=arguments)
 ```
 
 ## Sample notebooks
-Please refer to the following sample notebooks to see how you can use AutoML Vision with sample data in your scenario -
+Please refer to the following sample notebooks to see how you can use AutoML for Images with sample data in your scenario -
 
-Object Detection - [AutoML Vision Object Detection Sample Notebook](./ObjectDetection/AutoMLVision_ObjectDetection_SampleNotebook.ipynb)</br>
-Multi-Class Classification - [AutoML Vision Multi-Class Classification Sample Notebook](./MultiClass/AutoMLVision_MultiClass_SampleNotebook.ipynb)</br>
-Multi-Label Classification - [AutoML Vision Multi-Label Classification Sample Notebook](./MultiLabel/AutoMLVision_MultiLabel_SampleNotebook.ipynb)</br>
-Instance Segmentation - [AutoML Vision Instance Segmentation Sample Notebook](./InstanceSegmentation/AutoMLVision_InstanceSegmentation_SampleNotebook.ipynb)</br>
+Object Detection - [AutoML for Images Object Detection Sample Notebook](./ObjectDetection/AutoMLVision_ObjectDetection_SampleNotebook.ipynb)</br>
+Multi-Class Image Classification - [AutoML for Images Multi-Class Classification Sample Notebook](./MultiClass/AutoMLVision_MultiClass_SampleNotebook.ipynb)</br>
+Multi-Label Image Classification - [AutoML for Images Multi-Label Classification Sample Notebook](./MultiLabel/AutoMLVision_MultiLabel_SampleNotebook.ipynb)</br>
+Instance Segmentation - [AutoML for Images Instance Segmentation Sample Notebook](./InstanceSegmentation/AutoMLVision_InstanceSegmentation_SampleNotebook.ipynb)</br>
