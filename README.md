@@ -34,7 +34,7 @@ This feature is targeted to data scientists with ML knowledge in the Computer Vi
 Like all Azure ML features, customers incur the costs associated with the Azure resources consumed (for example, compute and storage costs). There are no additional fees associated with Azure Machine Learning or AutoML for Images. See [Azure Machine Learning pricing](https://azure.microsoft.com/en-us/pricing/details/machine-learning/) for details.
 
 ## How to use AutoML to build models for computer vision tasks?
-AutoML allows you to easily train models for Image Classification, Object Detection & Instance Segmentation on your image data. You can control the model algorithm to be used, specify hyperparameter values for your model as well as perform a sweep across the hyperparameter space to generate an optimal model. Parameters for configuring your AutoML run for image related tasks are specified using the 'AutoMLVisionConfig' in the Python SDK.
+AutoML allows you to easily train models for Image Classification, Object Detection & Instance Segmentation on your image data. You can control the model algorithm to be used, specify hyperparameter values for your model as well as perform a sweep across the hyperparameter space to generate an optimal model. Parameters for configuring your AutoML run for image related tasks are specified using the 'AutoMLImageConfig' in the Python SDK.
 
 ### Select your task type
 AutoML for Images supports the following task types:
@@ -45,11 +45,11 @@ AutoML for Images supports the following task types:
 <li>image-instance-segmentation</li>
 </ul>
 
-This task type is a required parameter and is passed in using the `task` parameter in the AutoMLVisionConfig. For example: 
+This task type is a required parameter and is passed in using the `task` parameter in the AutoMLImageConfig. For example: 
 
 ```python
-from azureml.train.automl import AutoMLVisionConfig
-automl_vision_config = AutoMLVisionConfig(task='image-object-detection')
+from azureml.train.automl import AutoMLImageConfig
+automl_image_config = AutoMLImageConfig(task='image-object-detection')
 ```
 
 ### Training and Validation data
@@ -143,21 +143,21 @@ training_dataset = training_dataset.register(workspace=ws, name=training_dataset
 
 You can optionally specify another labeled dataset as a validation dataset to be used for your model. If no validation dataset is specified, 20% of your training data will be used for validation by default, unless you pass `split_ratio` argument with a different value.
 
-Training data is a required parameter and is passed in using the `training_data` parameter. Validation data is optional and is passed in using the `validation_data` parameter of the AutoMLVisionConfig. For example: 
+Training data is a required parameter and is passed in using the `training_data` parameter. Validation data is optional and is passed in using the `validation_data` parameter of the AutoMLImageConfig. For example: 
 
 ```python
-from azureml.train.automl import AutoMLVisionConfig
-automl_vision_config = AutoMLVisionConfig(training_data=training_dataset)
+from azureml.train.automl import AutoMLImageConfig
+automl_image_config = AutoMLImageConfig(training_data=training_dataset)
 ```
 
 ### Compute to run experiment
 You will need to provide a [Compute Target](https://docs.microsoft.com/azure/machine-learning/service/concept-azure-machine-learning-architecture#compute-target) that will be used for your AutoML model training. AutoML models for computer vision tasks require GPU SKUs and support NC and ND families. Using a compute target with a multi-GPU VM SKU will leverage the multiple GPUs to speed up training. Additionally, setting up a compute target with multiple nodes will allow for faster model training by leveraging parallelism, when tuning hyperparameters for your model.
 
-The compute target is a required parameter and is passed in using the `compute_target` parameter of the AutoMLVisionConfig. For example: 
+The compute target is a required parameter and is passed in using the `compute_target` parameter of the AutoMLImageConfig. For example: 
 
 ```python
-from azureml.train.automl import AutoMLVisionConfig
-automl_vision_config = AutoMLVisionConfig(compute_target=compute_target)
+from azureml.train.automl import AutoMLImageConfig
+automl_image_config = AutoMLImageConfig(compute_target=compute_target)
 ```
 
 ### Configure model algorithms and hyperparameters
@@ -306,9 +306,9 @@ You can optionally enable early stopping for your AutoML Vision experiment using
 You can pass fixed settings or parameters that don't change during the parameter space sweep as arguments. Arguments are passed in name-value pairs and the name must be prefixed by a double dash. For example:
 
 ```python
-from azureml.train.automl import AutoMLVisionConfig
+from azureml.train.automl import AutoMLImageConfig
 arguments = ["--early_stopping", 1, "--evaluation_frequency", 2]
-automl_vision_config = AutoMLVisionConfig(arguments=arguments)
+automl_image_config = AutoMLImageConfig(arguments=arguments)
 ```
 
 ## Sample notebooks
