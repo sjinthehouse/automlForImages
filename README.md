@@ -49,7 +49,7 @@ This task type is a required parameter and is passed in using the `task` paramet
 
 ```python
 from azureml.train.automl import AutoMLImageConfig
-automl_vision_config = AutoMLImageConfig(task='image-object-detection')
+automl_image_config = AutoMLImageConfig(task='image-object-detection')
 ```
 
 ### Training and Validation data
@@ -147,7 +147,7 @@ Training data is a required parameter and is passed in using the `training_data`
 
 ```python
 from azureml.train.automl import AutoMLImageConfig
-automl_vision_config = AutoMLImageConfig(training_data=training_dataset)
+automl_image_config = AutoMLImageConfig(training_data=training_dataset)
 ```
 
 ### Compute to run experiment
@@ -157,7 +157,7 @@ The compute target is a required parameter and is passed in using the `compute_t
 
 ```python
 from azureml.train.automl import AutoMLImageConfig
-automl_vision_config = AutoMLImageConfig(compute_target=compute_target)
+automl_image_config = AutoMLImageConfig(compute_target=compute_target)
 ```
 
 ### Configure model algorithms and hyperparameters
@@ -308,7 +308,7 @@ You can pass fixed settings or parameters that don't change during the parameter
 ```python
 from azureml.train.automl import AutoMLImageConfig
 arguments = ["--early_stopping", 1, "--evaluation_frequency", 2]
-automl_vision_config = AutoMLImageConfig(arguments=arguments)
+automl_image_config = AutoMLImageConfig(arguments=arguments)
 ```
 
 ## Sample notebooks
