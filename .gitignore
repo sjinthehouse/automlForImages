@@ -259,3 +259,4 @@ ObjectDetection/odFridgeObjects/annotations/10.xml
 ObjectDetection/odFridgeObjects/annotations/1.xml
 ObjectDetection/odFridgeObjects/.DS_Store
 .idea/workspace.xml
+MultiClass/.ipynb_checkpoints/AutoMLImage_MultiClass_SampleNotebook-checkpoint.ipynb
