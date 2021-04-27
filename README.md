@@ -33,6 +33,12 @@ This feature is targeted to data scientists with ML knowledge in the Computer Vi
 ### Pricing
 Like all Azure ML features, customers incur the costs associated with the Azure resources consumed (for example, compute and storage costs). There are no additional fees associated with Azure Machine Learning or AutoML for Images. See [Azure Machine Learning pricing](https://azure.microsoft.com/en-us/pricing/details/machine-learning/) for details.
 
+## How to install Private Preview package of AutoML for Image tasks?
+To use AutoML for computer vision related tasks, you will need to install the private preview package for AutoML for images from the private index.
+```python
+!pip install --upgrade "azureml-train-core<0.1.1" "azureml-train-automl<0.1.1" "azureml-contrib-dataset<0.1.1" --extra-index-url "https://azuremlsdktestpypi.azureedge.net/automl_for_images_private_preview/"
+```
+
 ## How to use AutoML to build models for computer vision tasks?
 AutoML allows you to easily train models for Image Classification, Object Detection & Instance Segmentation on your image data. You can control the model algorithm to be used, specify hyperparameter values for your model as well as perform a sweep across the hyperparameter space to generate an optimal model. Parameters for configuring your AutoML run for image related tasks are specified using the 'AutoMLImageConfig' in the Python SDK.
 
