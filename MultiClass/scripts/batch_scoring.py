@@ -8,7 +8,7 @@ import json
 from azureml.core.model import Model
 from azureml.automl.core.shared import logging_utilities
 from azureml.contrib.automl.dnn.vision.common.logging_utils import get_logger
-from azureml.contrib.automl.dnn.vision.common.model_export_utils import load_model, run_inference
+from azureml.contrib.automl.dnn.vision.common.model_export_utils import load_model, run_inference_batch
 from azureml.contrib.automl.dnn.vision.classification.inference.score import _score_with_model
 from azureml.contrib.automl.dnn.vision.common.utils import _set_logging_parameters
 
@@ -41,14 +41,11 @@ def init():
 
 
 def run(mini_batch):
-    result_list = []
-    for file_path in mini_batch:
-        test_image = open(file_path, 'rb').read()
-        logger.info("Running inference.")
-        result = run_inference(model, test_image, _score_with_model)
-        result_str = result.decode()
-        result_json = json.loads(result_str)
-        result_json["filename"] = file_path
-        logger.info("Finished inferencing.")
-        result_list.append(json.dumps(result_json))
-    return result_list
+    parser = argparse.ArgumentParser(description="Batch size to use for inferencing")
+    parser.add_argument('--batch_size', dest="batch_size", type=int, required=False)
+    args, _ = parser.parse_known_args()
+
+    logger.info("Running inference.")
+    result = run_inference_batch(model, mini_batch, _score_with_model, args.batch_size)
+    logger.info("Finished inferencing.")
+    return result
