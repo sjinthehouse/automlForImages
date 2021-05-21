@@ -409,3 +409,4 @@ MultiClass/fridgeObjects/train_annotations.jsonl
 MultiClass/fridgeObjects/validation_annotations.jsonl
 automl.log
 .ipynb_checkpoints/AutoMLImageRetrainingPipeline-checkpoint.ipynb
+MultiClass/score.py
