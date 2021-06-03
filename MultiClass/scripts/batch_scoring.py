@@ -18,13 +18,17 @@ logger = get_logger('azureml.automl.core.scoring_script_images')
 
 def init():
     global model
+    global batch_size
     
     # Set up logging
     _set_logging_parameters(TASK_TYPE, {})
     
-    parser = argparse.ArgumentParser(description="Start automl-vision model serving")
+    parser = argparse.ArgumentParser(description="Retrieve model_name and batch_size from arguments.")
     parser.add_argument('--model_name', dest="model_name", required=True)
+    parser.add_argument('--batch_size', dest="batch_size", type=int, required=False)
     args, _ = parser.parse_known_args()
+
+    batch_size = args.batch_size
 
     model_path = os.path.join(Model.get_model_path(args.model_name), 'model.pt')
     print(model_path)
@@ -41,11 +45,7 @@ def init():
 
 
 def run(mini_batch):
-    parser = argparse.ArgumentParser(description="Batch size to use for inferencing")
-    parser.add_argument('--batch_size', dest="batch_size", type=int, required=False)
-    args, _ = parser.parse_known_args()
-
     logger.info("Running inference.")
-    result = run_inference_batch(model, mini_batch, _score_with_model, args.batch_size)
+    result = run_inference_batch(model, mini_batch, _score_with_model, batch_size)
     logger.info("Finished inferencing.")
     return result
