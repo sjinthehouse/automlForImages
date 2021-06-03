@@ -324,3 +324,6 @@ Object Detection - [AutoML for Images Object Detection Sample Notebook](./Object
 Multi-Class Image Classification - [AutoML for Images Multi-Class Classification Sample Notebook](./MultiClass/AutoMLImage_MultiClass_SampleNotebook.ipynb)</br>
 Multi-Label Image Classification - [AutoML for Images Multi-Label Classification Sample Notebook](./MultiLabel/AutoMLImage_MultiLabel_SampleNotebook.ipynb)</br>
 Instance Segmentation - [AutoML for Images Instance Segmentation Sample Notebook](./InstanceSegmentation/AutoMLImage_InstanceSegmentation_SampleNotebook.ipynb)</br>
+
+Additionally, here's a link to a repository with sample notebooks demonstrating how AutoML for Images can be used for scenarios ranging from retail and CRM to workplace safety and quality control -
+[https://github.com/retkowsky/AutoMLforImages](https://github.com/retkowsky/AutoMLforImages)
