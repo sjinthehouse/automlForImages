@@ -7,10 +7,17 @@ import json
 
 from azureml.core.model import Model
 from azureml.automl.core.shared import logging_utilities
-from azureml.contrib.automl.dnn.vision.common.logging_utils import get_logger
-from azureml.contrib.automl.dnn.vision.common.model_export_utils import load_model, run_inference_batch
-from azureml.contrib.automl.dnn.vision.classification.inference.score import _score_with_model
-from azureml.contrib.automl.dnn.vision.common.utils import _set_logging_parameters
+
+try:
+    from azureml.automl.dnn.vision.common.logging_utils import get_logger
+    from azureml.automl.dnn.vision.common.model_export_utils import load_model, run_inference_batch
+    from azureml.automl.dnn.vision.classification.inference.score import _score_with_model
+    from azureml.automl.dnn.vision.common.utils import _set_logging_parameters
+except ImportError:
+    from azureml.contrib.automl.dnn.vision.common.logging_utils import get_logger
+    from azureml.contrib.automl.dnn.vision.common.model_export_utils import load_model, run_inference
+    from azureml.contrib.automl.dnn.vision.classification.inference.score import _score_with_model
+    from azureml.contrib.automl.dnn.vision.common.utils import _set_logging_parameters
 
 TASK_TYPE = 'image-classification'
 logger = get_logger('azureml.automl.core.scoring_script_images')
