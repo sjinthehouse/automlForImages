@@ -34,7 +34,8 @@ class BoundingBoxConverter(CocoToJSONLinesConverter):
         self.json_lines_data[index]['image_details']["height"] = coco_image['height']
 
     def _populate_bbox_in_label(self, label, annotation, image_details):
-        if min(annotation['bbox']) < 1.0:
+        # if bbox comes as normalized, skip normalization.
+        if max(annotation['bbox']) < 1.5:
             width = 1
             height = 1
         else:
