@@ -35,17 +35,15 @@ class BoundingBoxConverter(CocoToJSONLinesConverter):
 
     def _populate_bbox_in_label(self, label, annotation, image_details):
         if min(annotation['bbox']) < 1.0:
-            label['topX'] = annotation['bbox'][0]
-            label['topY'] = annotation['bbox'][1]
-            label['bottomX'] = annotation['bbox'][2]
-            label['bottomY'] = annotation['bbox'][3]
+            width = 1
+            height = 1
         else:
             width = image_details["width"]
             height = image_details["height"]
-            label['topX'] = annotation['bbox'][0] / width
-            label['topY'] = annotation['bbox'][1] / height
-            label['bottomX'] = (annotation['bbox'][0] + annotation['bbox'][2]) / width
-            label['bottomY'] = (annotation['bbox'][1] + annotation['bbox'][3]) / height
+        label['topX'] = annotation['bbox'][0] / width
+        label['topY'] = annotation['bbox'][1] / height
+        label['bottomX'] = (annotation['bbox'][0] + annotation['bbox'][2]) / width
+        label['bottomY'] = (annotation['bbox'][1] + annotation['bbox'][3]) / height
 
     def _populate_label(self, annotation):
         index = self.image_id_to_data_index[annotation['image_id']]
