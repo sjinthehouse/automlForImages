@@ -7,10 +7,17 @@ import json
 
 from azureml.core.model import Model
 from azureml.automl.core.shared import logging_utilities
-from azureml.contrib.automl.dnn.vision.common.logging_utils import get_logger
-from azureml.contrib.automl.dnn.vision.common.model_export_utils import load_model, run_inference
-from azureml.contrib.automl.dnn.vision.classification.inference.score import _score_with_model
-from azureml.contrib.automl.dnn.vision.common.utils import _set_logging_parameters
+
+try:
+    from azureml.automl.dnn.vision.common.logging_utils import get_logger
+    from azureml.automl.dnn.vision.common.model_export_utils import load_model, run_inference_batch
+    from azureml.automl.dnn.vision.classification.inference.score import _score_with_model
+    from azureml.automl.dnn.vision.common.utils import _set_logging_parameters
+except ImportError:
+    from azureml.contrib.automl.dnn.vision.common.logging_utils import get_logger
+    from azureml.contrib.automl.dnn.vision.common.model_export_utils import load_model, run_inference
+    from azureml.contrib.automl.dnn.vision.classification.inference.score import _score_with_model
+    from azureml.contrib.automl.dnn.vision.common.utils import _set_logging_parameters
 
 TASK_TYPE = 'image-classification'
 logger = get_logger('azureml.automl.core.scoring_script_images')
@@ -18,13 +25,17 @@ logger = get_logger('azureml.automl.core.scoring_script_images')
 
 def init():
     global model
+    global batch_size
     
     # Set up logging
     _set_logging_parameters(TASK_TYPE, {})
     
-    parser = argparse.ArgumentParser(description="Start automl-vision model serving")
+    parser = argparse.ArgumentParser(description="Retrieve model_name and batch_size from arguments.")
     parser.add_argument('--model_name', dest="model_name", required=True)
+    parser.add_argument('--batch_size', dest="batch_size", type=int, required=False)
     args, _ = parser.parse_known_args()
+
+    batch_size = args.batch_size
 
     model_path = os.path.join(Model.get_model_path(args.model_name), 'model.pt')
     print(model_path)
@@ -41,14 +52,7 @@ def init():
 
 
 def run(mini_batch):
-    result_list = []
-    for file_path in mini_batch:
-        test_image = open(file_path, 'rb').read()
-        logger.info("Running inference.")
-        result = run_inference(model, test_image, _score_with_model)
-        result_str = result.decode()
-        result_json = json.loads(result_str)
-        result_json["filename"] = file_path
-        logger.info("Finished inferencing.")
-        result_list.append(json.dumps(result_json))
-    return result_list
+    logger.info("Running inference.")
+    result = run_inference_batch(model, mini_batch, _score_with_model, batch_size)
+    logger.info("Finished inferencing.")
+    return result
