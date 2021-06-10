@@ -15,7 +15,7 @@ try:
     from azureml.automl.dnn.vision.common.utils import _set_logging_parameters
 except ImportError:
     from azureml.contrib.automl.dnn.vision.common.logging_utils import get_logger
-    from azureml.contrib.automl.dnn.vision.common.model_export_utils import load_model, run_inference
+    from azureml.contrib.automl.dnn.vision.common.model_export_utils import load_model, run_inference_batch
     from azureml.contrib.automl.dnn.vision.classification.inference.score import _score_with_model
     from azureml.contrib.automl.dnn.vision.common.utils import _set_logging_parameters
 
@@ -26,10 +26,10 @@ logger = get_logger('azureml.automl.core.scoring_script_images')
 def init():
     global model
     global batch_size
-    
+
     # Set up logging
     _set_logging_parameters(TASK_TYPE, {})
-    
+
     parser = argparse.ArgumentParser(description="Retrieve model_name and batch_size from arguments.")
     parser.add_argument('--model_name', dest="model_name", required=True)
     parser.add_argument('--batch_size', dest="batch_size", type=int, required=False)
