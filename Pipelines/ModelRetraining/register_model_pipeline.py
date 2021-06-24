@@ -30,7 +30,7 @@ else:
     ws = run.experiment.workspace
 
 if args.model_name == 'automl_image_model':
-    print('No non default model name provided from the arguments. Using auto-generated model name from automl child run.')
+    print('Default model name provided. Using auto-generated model name from automl child run.')
 
     # Retrive the model name from automl's best child run if model name is not provided in arguments.
     pipeline_run = run.parent
@@ -42,7 +42,7 @@ if args.model_name == 'automl_image_model':
             break
 
     automl_run = AutoMLRun(experiment=run.experiment,
-                        run_id=automl_step_run_id)
+                           run_id=automl_step_run_id)
 
     best_child_run = automl_run.get_best_child()
     model_name = best_child_run.properties['model_name']
