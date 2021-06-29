@@ -64,9 +64,7 @@ except Exception as e:
     raise
 
 # Retrieve the hd run's data
-for key in metrics_data.keys():
-    hd_run_data = metrics_data[key]
-    break
+hd_run_data = metrics_data[metrics_data.keys()[0]]
 
 # Retrieve the best child run's data
 hd_run_data = hd_run_data['best_child_by_primary_metric']
