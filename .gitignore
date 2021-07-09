@@ -796,5 +796,5 @@ ObjectDetection/odFridgeObjects/images/99.jpg
 ObjectDetection/odFridgeObjects/train_annotations.jsonl
 ObjectDetection/odFridgeObjects/validation_annotations.jsonl
 ObjectDetection/score.py
+Pipelines/BatchScoring/.ipynb_checkpoints/AutoMLImage_MultiClass_BatchScoring_SampleNotebook-checkpoint.ipynb
 automl.log
-
