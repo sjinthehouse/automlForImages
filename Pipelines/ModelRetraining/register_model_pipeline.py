@@ -64,7 +64,9 @@ except Exception as e:
     raise
 
 # Retrieve the hd run's data
-hd_run_data = metrics_data[metrics_data.keys()[0]]
+for key in metrics_data.keys():
+    hd_run_data = metrics_data[key]
+    break
 
 # Retrieve the best child run's data
 hd_run_data = hd_run_data['best_child_by_primary_metric']
@@ -92,8 +94,8 @@ except Exception as e:
 if model is None or args.register_always:
     if args.register_always:
         print("register_always switch is On. Proceeding to register the model..")
-    # Register the model with the training dataset and the metrics tag. 
-    model = Model.register(workspace=ws, 
+    # Register the model with the training dataset and the metrics tag.
+    model = Model.register(workspace=ws,
                            model_path=args.model_path,
                            model_name=model_name,
                            tags=tags,
@@ -103,28 +105,32 @@ else:
     # Retrieve the metrics of the existing model if any.
     current_metric_val = 0
     if model.tags:
-        if  metric_name in model.tags:
-            current_metric_val = model.tags[metric_name]            
+        if metric_name in model.tags:
+            current_metric_val = model.tags[metric_name]
         if metric_value > float(current_metric_val):
-            print("New model has a {0} value of {1} which is better than the existing model's value of {2}".format(metric_name, metric_value, current_metric_val))
+            print("New model has a {0} value of {1} which is better than the existing model's value of {2}".format(
+                metric_name, metric_value, current_metric_val))
             print("Registering the model..")
-            # Register the model with the training dataset and the metrics tag. 
+            # Register the model with the training dataset and the metrics tag.
             model = Model.register(workspace=ws,
                                    model_path=args.model_path,
                                    model_name=model_name,
                                    tags=tags,
                                    datasets=datasets)
-            print("Registered version {0} of model {1} with {2}:{3}".format(model.version, model.name, metric_name, metric_value))
+            print("Registered version {0} of model {1} with {2}:{3}".format(
+                model.version, model.name, metric_name, metric_value))
         else:
             # Do not register the model as its not better than the current model.
-            print("Current model has a {0} value of {1} which is better than or same as the new model's value of {2}".format(metric_name, current_metric_val, metric_value))
+            print("Current model has a {0} value of {1} which is better than or same as the new model's value of {2}".format(
+                metric_name, current_metric_val, metric_value))
             print("No model registered from this run.")
     else:
         print('No metrics found for the existing model. Registering model with metrics..')
-        # Register the model with the training dataset and the metrics tag. 
-        model = Model.register(workspace=ws, 
+        # Register the model with the training dataset and the metrics tag.
+        model = Model.register(workspace=ws,
                                model_path=args.model_path,
                                model_name=model_name,
                                tags=tags,
                                datasets=datasets)
-        print("Registered version {0} of model {1} with {2}:{3}".format(model.version, model.name, metric_name, metric_value))
+        print("Registered version {0} of model {1} with {2}:{3}".format(
+            model.version, model.name, metric_name, metric_value))
